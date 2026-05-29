@@ -480,7 +480,7 @@
   .keynote-card .audience {
     margin-top: 24px; display: flex; gap: 30px; position: relative;
     padding-top: 22px; border-top: 1px solid var(--border);
-    justify-content: space-between; align-items: center;
+    justify-content: space-between; align-items: center; flex-wrap: wrap; row-gap: 14px;
   }
   .keynote-card .audience .v { font-family: "Space Grotesk", sans-serif; font-size: 26px; font-weight: 700; }
   .keynote-card .audience .l { font-size: 12px; color: var(--faint); margin-top: 4px; }
@@ -604,7 +604,9 @@
   .gallery .tile:hover .gcap { transform: translateY(0); opacity: 1; }
   @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
   @media (prefers-reduced-motion: reduce) { .gallery .track.animate { animation: none; } }
-  @media (max-width: 700px) { .gallery .tile { height: 220px; } }
+  @media (max-width: 700px) { .gallery .tile { height: 260px; } }
+  /* touch devices have no hover — show gallery captions by default */
+  @media (hover: none) { .gallery .tile .gcap { opacity: 1; transform: none; } .gallery .tile .gtint { opacity: .5; } }
 
   /* ===== CONTACT ===== */
   .contact-card {
@@ -656,8 +658,13 @@
     .os-figure { justify-self: start; }
   }
   @media (max-width: 860px) {
-    .nav-links .link { display: none; }
+    nav { display: none; }
     .hero-grid, .ai-grid { grid-template-columns: 1fr; }
+    /* mobile hero: no top bar, photo on top, smaller, with breathing room */
+    .hero.container { padding-top: 96px; padding-bottom: 56px; }
+    .hero-grid { gap: 40px; }
+    .photo-card { order: -1; }
+    .photo-frame { max-width: 232px; }
     .stats-grid { grid-template-columns: 1fr 1fr; }
     .hero h1 { font-size: 46px; }
     .section-title, .contact-card h2 { font-size: 32px; }
@@ -667,7 +674,9 @@
   }
   @media (max-width: 480px) {
     .stats-grid { grid-template-columns: 1fr; }
+    .hero.container { padding-top: 80px; padding-bottom: 48px; }
     .hero h1 { font-size: 40px; }
+    .photo-frame { max-width: 208px; }
     .cc-row { flex-direction: column; align-items: flex-start; gap: 4px; }
     .cc-val { text-align: left; }
   }
@@ -957,7 +966,7 @@
 <!-- ===== GALLERY ===== -->
 <section class="container" id="gallery" style="padding-top:115px">
   <span class="eyebrow">Gallery</span>
-  <h2 class="section-title">Insights <em>beyond</em> coding & problem solving.</h2>
+  <h2 class="section-title">Insights <em>beyond</em> coding & problem solving</h2>
   <p class="section-sub">A few moments — talks, the team, sports and the things that keep me focused.</p>
   <div class="gallery"><div class="track" id="gallery-track"></div></div>
 </section>
@@ -968,7 +977,7 @@
     <div class="contact-grid">
       <div>
         <span class="eyebrow">Get in touch</span>
-        <h2>Let's build something <span class="grad">worth</span> talking about.</h2>
+        <h2 class="section-title">Let's build something <em>worth</em> talking about.</h2>
         <p class="sub">
           Whether you're looking for an engineering leader, a technical partner for your next mobile, web
           or AI product, or a speaker for your stage — I'd be glad to hear from you.
