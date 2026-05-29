@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100" role="img" aria-label="Philipp Jahoda">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#13161f"/>
+      <stop offset="1" stop-color="#0a0c13"/>
+    </linearGradient>
+  </defs>
+  <path d="M24,0 H100 V76 L76,100 H0 V24 Z" fill="url(#bg)"/>
+  <line x1="95.8" y1="71.8" x2="71.8" y2="95.8" stroke="#5fa3e6" stroke-width="3"/>
+  <g fill="none" stroke-width="13" stroke-linecap="square" stroke-linejoin="miter">
+    <path d="M25,78 V22 H44 L52,30 V41 L44,49 H25" stroke="#f5f7fa"/>
+    <path d="M69,22 V59 L60,69 L49,69" stroke="#5fa3e6"/>
+  </g>
+</svg>
