@@ -1,0 +1,8 @@
+[
+  { "src": "assets/gallery/btm.jpg",        "title": "Keynote — BTM 2026",        "subtitle": "AI in business · Vienna" },
+  { "src": "assets/gallery/sportstech.jpg", "title": "Sports meets technology",   "subtitle": "Ahoi Kapptn! Event" },
+  { "src": "assets/gallery/portrait.jpg",   "title": "Philipp Jahoda",            "subtitle": "Off stage" },
+  { "src": "assets/gallery/btm2.jpg",        "title": "On stage — BTM 2026",       "subtitle": "BTM Event · Vienna" },
+  { "src": "assets/gallery/rotax.jpg",       "title": "Rotax Business Challenge",  "subtitle": "On the track" },
+  { "src": "assets/gallery/hyrox-web.jpg",   "title": "HYROX",                     "subtitle": "Beyond the desk" }
+]

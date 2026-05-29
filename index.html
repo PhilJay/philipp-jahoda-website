@@ -249,7 +249,7 @@
   .btn-ghost:hover { background: var(--glass-strong); transform: translateY(-2px); }
 
   /* ===== HERO ===== */
-  .hero { padding-top: 76px; padding-bottom: 76px; }
+  .hero { padding-top: 114px; padding-bottom: 76px; }
   .hero-grid {
     display: grid;
     grid-template-columns: 1.05fr 1fr;
@@ -381,9 +381,9 @@
     grid-template-columns: 1.1fr 0.9fr;
     gap: 30px;
     margin-top: 48px;
-    align-items: start;
+    align-items: stretch;
   }
-  .lead-prose { padding: 40px; }
+  .lead-prose { padding: 40px; display: flex; flex-direction: column; }
   .lead-prose p {
     font-size: 17px;
     color: var(--muted);
@@ -587,6 +587,25 @@
   }
   .tag.key .ic { color: var(--violet); }
 
+  /* ===== GALLERY ===== */
+  .gallery { overflow: hidden; margin-top: 44px; -webkit-mask-image: linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent); mask-image: linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent); }
+  .gallery .track { display: flex; width: max-content; }
+  .gallery .track.animate { animation: marquee var(--dur,40s) linear infinite; }
+  .gallery .track.animate:hover { animation-play-state: paused; }
+  .gallery .track.static { width: 100%; justify-content: center; }
+  .gallery .tile { flex: 0 0 auto; height: 300px; margin-right: 18px; position: relative; overflow: hidden; border-radius: 14px; cursor: pointer; border: 1px solid var(--border); background: #0d1320; }
+  .gallery .tile img { height: 100%; width: auto; display: block; filter: grayscale(.9) contrast(1.02) brightness(.9); transition: transform .55s ease, filter .45s ease; }
+  .gallery .tile .gtint { position: absolute; inset: 0; background: linear-gradient(150deg, rgba(95,163,230,.55), rgba(82,119,189,.22)); mix-blend-mode: soft-light; transition: opacity .4s; pointer-events: none; }
+  .gallery .tile .gcap { position: absolute; left: 0; right: 0; bottom: 0; padding: 16px 16px 14px; background: linear-gradient(to top, rgba(8,10,16,.94), rgba(8,10,16,.45) 55%, transparent); transform: translateY(10px); opacity: 0; transition: transform .4s ease, opacity .4s ease; pointer-events: none; }
+  .gallery .tile .gcap h4 { font-family: "Space Grotesk", sans-serif; font-size: 16px; font-weight: 600; }
+  .gallery .tile .gcap p { font-size: 12.5px; color: #9fc4ee; margin-top: 2px; }
+  .gallery .tile:hover img { transform: scale(1.05); filter: grayscale(.35) contrast(1.03) brightness(1); }
+  .gallery .tile:hover .gtint { opacity: .5; }
+  .gallery .tile:hover .gcap { transform: translateY(0); opacity: 1; }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) { .gallery .track.animate { animation: none; } }
+  @media (max-width: 700px) { .gallery .tile { height: 220px; } }
+
   /* ===== CONTACT ===== */
   .contact-card {
     padding: 60px 56px;
@@ -669,7 +688,7 @@
       <img class="logo" src="/assets/logo-home.svg" alt="" />
     </a>
     <div class="nav-links">
-      <a class="link" href="#now">Engineering &amp; Leadership</a>
+      <a class="link" href="#now">What I do</a>
       <a class="link" href="#ai">AI</a>
       <a class="link" href="#speaking">Speaking</a>
       <a class="link" href="#about">About</a>
@@ -686,8 +705,9 @@
       <h1>Philipp Jahoda</h1>
       <p class="role-line">Software engineer &amp; entrepreneur <span class="accent">·</span> Austria</p>
       <p class="tagline">
-        A decade leading engineering as a CTO &amp; Co-Founder — today a team of 15+ engineers
-        building mobile, web, backend and AI products, and the infrastructure behind them.
+        I love sports, engaging with people, and building things. As a CTO &amp; Co-Founder of
+        <strong>Ahoi Kapptn</strong> and <strong>AhoiSports</strong>, I get to do just that—leading a team of
+        15+ engineers creating mobile, web, backend, and AI products, alongside the infrastructure that powers them.
       </p>
       <div class="cred-line">
         Keynote speaker <span class="sep">·</span> CTO &amp; Co-Founder <span class="sep">·</span> 15+ years shipping software
@@ -720,9 +740,9 @@
 <!-- ===== LEADERSHIP & WHAT I DO NOW ===== -->
 <section class="container" id="now" style="padding-top:128px">
   <span class="eyebrow">What I do</span>
-  <h2 class="section-title">A decade leading engineers — <em>and the architecture they build.</em></h2>
+  <h2 class="section-title">Leading engineers — <em>and the architecture they build.</em></h2>
   <p class="section-sub">
-    At <strong style="color:var(--text);font-weight:600">Ahoi Kapptn!</strong>, I own the technology end to end — the people, the direction, and the
+    At <strong style="color:var(--text);font-weight:600">Ahoi Kapptn!</strong>, my work spans the whole of technology — the people, the direction, and the
     systems that keep running long after launch.
   </p>
 
@@ -731,14 +751,14 @@
       <p>
         <span class="dropcap">F</span>or roughly ten years I've been a CTO &amp; Co-Founder — first scaling
         a startup, <strong>Butleroy</strong>, now an agency, <strong>Ahoi Kapptn</strong>. Two very different
-        settings, one lesson: a product is only as durable as the team and the architecture behind it.
+        settings, one lesson: a product is only as durable as the team, the problem it solves and the architecture behind it.
       </p>
       <p>
         Today I lead <strong>15+ engineers</strong> and own the technology end to end — mobile and web apps,
         backends, cloud infrastructure, DevOps and AI. I set the direction, grow the team, and still build across
         the whole stack.
       </p>
-      <a class="os-link" href="https://ahoikapptn.com" target="_blank" rel="noopener" style="margin-top:22px">
+      <a class="os-link" href="https://ahoikapptn.com" target="_blank" rel="noopener" style="margin-top:auto;padding-top:22px">
         Visit ahoikapptn.com
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
       </a>
@@ -863,8 +883,7 @@
         <p>
           Earlier in my career I created <strong>MPAndroidChart</strong> — for over a decade the
           <strong>industry standard for charts</strong>, now used in <strong>thousands of apps</strong> and installed
-          <strong>billions of times</strong> on devices worldwide. Together with its Apple sibling, my open-source
-          projects have earned around <strong>66,000 GitHub stars</strong>.
+          <strong>billions of times</strong> on devices worldwide. Overall, open-source projects I created or was involved in have earned more than <strong>66,000 GitHub stars</strong>.
         </p>
         <p style="margin-top:16px;font-size:14.5px;color:var(--teal);display:flex;align-items:flex-start;gap:9px;line-height:1.55">
           <span aria-hidden="true" style="opacity:.85">✶</span>
@@ -886,10 +905,10 @@
 <!-- ===== TRACK RECORD ===== -->
 <section class="container" id="about" style="padding-top:115px">
   <span class="eyebrow">Track record</span>
-  <h2 class="section-title">Fifteen years building, <em>across</em> ventures and continents.</h2>
+  <h2 class="section-title">Fifteen years of building, <em>across</em> ventures and industries.</h2>
   <p class="section-sub">
     My path runs through the full arc of building and shipping software — from a master's in Mobile Computing
-    to open source used the world over, and on to leading engineering teams of my own.
+    to open source used worldwide, and on to leading engineering teams and building with them.
   </p>
 
   <div class="timeline">
@@ -934,6 +953,14 @@
       <div class="org">FH Hagenberg</div>
     </div>
   </div>
+</section>
+
+<!-- ===== GALLERY ===== -->
+<section class="container" id="gallery" style="padding-top:115px">
+  <span class="eyebrow">Gallery</span>
+  <h2 class="section-title">Beyond the <em>code.</em></h2>
+  <p class="section-sub">A few moments — talks, the team, sports and the things that keep me focused.</p>
+  <div class="gallery"><div class="track" id="gallery-track"></div></div>
 </section>
 
 <!-- ===== CONTACT ===== -->
@@ -1031,6 +1058,32 @@
   document.querySelectorAll('a[href^="#"]').forEach(function (a) {
     a.addEventListener('click', handle);
   });
+})();
+</script>
+<script>
+(function () {
+  var track = document.getElementById("gallery-track");
+  if (!track) return;
+  function esc(s){var d=document.createElement("div");d.textContent=(s==null?"":String(s));return d.innerHTML;}
+  function tile(it,dup){
+    return '<figure class="tile"'+(dup?' aria-hidden="true"':'')+'>'+
+      '<img src="'+esc(it.src)+'" alt="'+(dup?'':esc(it.title))+'" loading="lazy">'+
+      '<span class="gtint"></span>'+
+      '<figcaption class="gcap"><h4>'+esc(it.title)+'</h4>'+(it.subtitle?'<p>'+esc(it.subtitle)+'</p>':'')+'</figcaption>'+
+      '</figure>';
+  }
+  fetch("assets/gallery/gallery.json",{cache:"no-store"})
+    .then(function(r){if(!r.ok)throw new Error("HTTP "+r.status);return r.json();})
+    .then(function(items){
+      if(!Array.isArray(items)||!items.length){track.parentNode.parentNode.style.display="none";return;}
+      var base=items.map(function(it){return tile(it,false);}).join("");
+      if(items.length>3){
+        track.innerHTML=base+items.map(function(it){return tile(it,true);}).join("");
+        track.classList.add("animate");
+        track.style.setProperty("--dur",(items.length*5.5)+"s");
+      }else{track.innerHTML=base;track.classList.add("static");}
+    })
+    .catch(function(){track.parentNode.parentNode.style.display="none";});
 })();
 </script>
 </body>
