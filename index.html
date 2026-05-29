@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Philipp Jahoda — CTO &amp; Co-Founder, Ahoi Kapptn</title>
+<meta name="description" content="Philipp Jahoda — CTO &amp; Co-Founder at Ahoi Kapptn in Linz, Austria. A decade leading engineering teams across a startup and an agency, building mobile, web, backend and AI products. Keynote speaker and university lecturer." />
+<meta name="theme-color" content="#0a0a12" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --base: #0a0a12;
+    --base-2: #0d0d18;
+    --indigo: #6366f1;
+    --violet: #a855f7;
+    --cyan: #22d3ee;
+    --teal: #2dd4bf;
+    --text: #eef0fb;
+    --muted: #aeb2cc;
+    --faint: #7e82a4;
+    --glass: rgba(255, 255, 255, 0.045);
+    --glass-strong: rgba(255, 255, 255, 0.07);
+    --border: rgba(255, 255, 255, 0.09);
+    --border-bright: rgba(255, 255, 255, 0.16);
+    --radius: 20px;
+    --maxw: 1160px;
+    --shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.65);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: "Inter", system-ui, sans-serif;
+    background: var(--base);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  h1, h2, h3, .display {
+    font-family: "Space Grotesk", "Inter", sans-serif;
+    letter-spacing: -0.02em;
+    line-height: 1.08;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  ::selection { background: rgba(168,85,247,0.4); color: #fff; }
+
+  :focus-visible {
+    outline: 2px solid var(--cyan);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  /* ===== AURORA BACKGROUND ===== */
+  .aurora {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    overflow: hidden;
+    background:
+      radial-gradient(60% 50% at 50% -10%, rgba(99,102,241,0.12), transparent 70%),
+      var(--base);
+  }
+  .aurora::before,
+  .aurora::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(90px);
+    opacity: 0.55;
+    will-change: transform;
+  }
+  .aurora::before {
+    width: 60vw; height: 60vw;
+    top: -18vw; left: -8vw;
+    background: radial-gradient(circle at 30% 30%, var(--indigo), transparent 62%);
+    animation: drift1 22s ease-in-out infinite alternate;
+  }
+  .aurora::after {
+    width: 55vw; height: 55vw;
+    top: 8vw; right: -12vw;
+    background: radial-gradient(circle at 60% 40%, var(--violet), transparent 60%);
+    animation: drift2 26s ease-in-out infinite alternate;
+  }
+  .aurora .blob3 {
+    position: absolute;
+    width: 50vw; height: 50vw;
+    bottom: -16vw; left: 22vw;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.4;
+    background: radial-gradient(circle at 50% 50%, var(--cyan), transparent 60%);
+    animation: drift3 30s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+  .aurora .blob4 {
+    position: absolute;
+    width: 38vw; height: 38vw;
+    top: 38vw; left: -6vw;
+    border-radius: 50%;
+    filter: blur(110px);
+    opacity: 0.3;
+    background: radial-gradient(circle at 50% 50%, var(--teal), transparent 62%);
+    animation: drift4 28s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+  .grain {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.5;
+    background-image:
+      linear-gradient(to bottom, transparent, rgba(10,10,18,0.55) 90%),
+      repeating-linear-gradient(0deg, rgba(255,255,255,0.012) 0 1px, transparent 1px 3px);
+  }
+
+  @keyframes drift1 {
+    0%   { transform: translate(0,0) scale(1); }
+    100% { transform: translate(6vw, 4vw) scale(1.12); }
+  }
+  @keyframes drift2 {
+    0%   { transform: translate(0,0) scale(1.05); }
+    100% { transform: translate(-5vw, 6vw) scale(0.95); }
+  }
+  @keyframes drift3 {
+    0%   { transform: translate(0,0) scale(1); }
+    100% { transform: translate(-7vw, -4vw) scale(1.15); }
+  }
+  @keyframes drift4 {
+    0%   { transform: translate(0,0) scale(1); }
+    100% { transform: translate(5vw, -5vw) scale(1.1); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .aurora::before, .aurora::after, .aurora .blob3, .aurora .blob4 { animation: none; }
+  }
+
+  /* ===== LAYOUT ===== */
+  .container { max-width: var(--maxw); margin: 0 auto; padding: 0 32px; }
+  section { padding: 100px 0; position: relative; }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    margin-bottom: 18px;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 22px; height: 1px;
+    background: linear-gradient(90deg, var(--cyan), transparent);
+  }
+
+  .section-title { font-size: 40px; font-weight: 600; margin-bottom: 16px; }
+  .section-title em { font-style: italic; color: var(--cyan); font-weight: 500; }
+  .section-sub { color: var(--muted); font-size: 18px; max-width: 660px; line-height: 1.62; }
+
+  /* ===== GLASS CARD ===== */
+  .glass {
+    background: linear-gradient(180deg, var(--glass-strong), var(--glass));
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+
+  /* ===== NAV ===== */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    padding: 14px 0;
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    background: rgba(10,10,18,0.55);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .monogram {
+    width: 38px; height: 38px;
+    display: grid; place-items: center;
+    border-radius: 11px;
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: -0.02em;
+    color: #fff;
+    background: linear-gradient(135deg, var(--indigo), var(--violet) 55%, var(--cyan));
+    box-shadow: 0 6px 20px -6px rgba(99,102,241,0.7), inset 0 1px 0 rgba(255,255,255,0.3);
+    flex-shrink: 0;
+  }
+  .brand-name { font-family: "Space Grotesk", sans-serif; font-weight: 600; font-size: 16px; }
+  .brand-name span { color: var(--faint); font-weight: 400; }
+  .nav-links { display: flex; align-items: center; gap: 30px; }
+  .nav-links a.link {
+    font-size: 14px; font-weight: 500; color: var(--muted);
+    transition: color 0.2s;
+  }
+  .nav-links a.link:hover { color: var(--text); }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-family: "Inter", sans-serif;
+    font-weight: 600; font-size: 14px;
+    padding: 11px 20px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+  }
+  .btn-primary {
+    color: #0a0a12;
+    background: linear-gradient(135deg, #fff, #cfd3f7);
+    box-shadow: 0 8px 26px -8px rgba(167,139,250,0.6);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 34px -10px rgba(167,139,250,0.8); }
+  .btn-glow {
+    color: #fff;
+    background: linear-gradient(135deg, var(--indigo), var(--violet));
+    box-shadow: 0 10px 30px -8px rgba(99,102,241,0.65), inset 0 1px 0 rgba(255,255,255,0.25);
+  }
+  .btn-glow:hover { transform: translateY(-2px); box-shadow: 0 16px 40px -10px rgba(99,102,241,0.85); }
+  .btn-ghost {
+    color: var(--text);
+    background: var(--glass);
+    border: 1px solid var(--border-bright);
+    backdrop-filter: blur(10px);
+  }
+  .btn-ghost:hover { background: var(--glass-strong); transform: translateY(-2px); }
+
+  /* ===== HERO ===== */
+  .hero { padding-top: 76px; padding-bottom: 76px; }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap: 54px;
+    align-items: center;
+  }
+  .pill {
+    display: inline-flex; align-items: center; gap: 9px;
+    padding: 7px 14px 7px 11px;
+    border-radius: 999px;
+    background: var(--glass);
+    border: 1px solid var(--border);
+    font-size: 13px; color: var(--muted);
+    margin-bottom: 26px;
+    backdrop-filter: blur(10px);
+  }
+  .pill .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--teal);
+    box-shadow: 0 0 10px 1px var(--teal);
+  }
+  .hero h1 {
+    font-size: 64px;
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+  .hero h1 .grad {
+    background: linear-gradient(110deg, #fff 10%, var(--cyan) 50%, var(--violet) 90%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .role-line {
+    font-size: 19px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+  .role-line .accent { color: var(--cyan); }
+  .tagline {
+    font-size: 18px;
+    color: var(--muted);
+    max-width: 560px;
+    margin-bottom: 22px;
+    line-height: 1.64;
+  }
+  .cred-line {
+    font-size: 14px;
+    color: var(--faint);
+    letter-spacing: 0.01em;
+    margin-bottom: 32px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 12px;
+    align-items: center;
+  }
+  .cred-line .sep { color: rgba(255,255,255,0.18); }
+  .hero-cta { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+  .hero-cta .secondary { display: flex; gap: 12px; }
+  .icon-link {
+    width: 44px; height: 44px;
+    display: grid; place-items: center;
+    border-radius: 12px;
+    background: var(--glass);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    transition: color 0.2s, border-color 0.2s, transform 0.2s;
+    backdrop-filter: blur(10px);
+  }
+  .icon-link:hover { color: var(--text); border-color: var(--border-bright); transform: translateY(-2px); }
+  .icon-link svg { width: 20px; height: 20px; }
+
+  /* ===== HERO CHART CARD ===== */
+  .chart-card { padding: 24px; position: relative; overflow: hidden; }
+  .chart-card::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: radial-gradient(80% 60% at 70% 10%, rgba(34,211,238,0.1), transparent 70%);
+    pointer-events: none;
+  }
+  .chart-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 6px; position: relative; z-index: 1; }
+  .chart-head .label { font-size: 13px; color: var(--faint); letter-spacing: 0.04em; }
+  .chart-head .value { font-family: "Space Grotesk", sans-serif; font-size: 26px; font-weight: 700; }
+  .chart-head .value small { font-size: 13px; color: var(--teal); font-weight: 600; margin-left: 6px; }
+  .chart-legend { display: flex; gap: 18px; font-size: 12px; color: var(--muted); flex-shrink: 0; }
+  .chart-legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .lg-dot { width: 9px; height: 9px; border-radius: 3px; }
+  .chart-svg { width: 100%; height: auto; display: block; position: relative; z-index: 1; }
+
+  .draw { stroke-dasharray: 1400; stroke-dashoffset: 1400; animation: draw 2.4s ease-out forwards; }
+  .draw.d2 { animation-delay: 0.4s; }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  @media (prefers-reduced-motion: reduce) { .draw { animation: none; stroke-dashoffset: 0; } }
+
+  /* ===== LEAD / NOW SECTION ===== */
+  .lead-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 30px;
+    margin-top: 48px;
+    align-items: start;
+  }
+  .lead-prose { padding: 40px; }
+  .lead-prose p {
+    font-size: 17px;
+    color: var(--muted);
+    line-height: 1.72;
+  }
+  .lead-prose p + p { margin-top: 18px; }
+  .lead-prose .dropcap {
+    float: left;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 66px;
+    line-height: 0.78;
+    font-weight: 700;
+    margin: 6px 14px 0 0;
+    background: linear-gradient(135deg, var(--cyan), var(--violet));
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .lead-prose strong { color: var(--text); font-weight: 600; }
+  .lead-side { display: flex; flex-direction: column; gap: 22px; }
+  .lead-stat { padding: 28px 30px; }
+  .lead-stat .n {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 40px; font-weight: 700; line-height: 1;
+    background: linear-gradient(120deg, #fff, #b9bdf0);
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .lead-stat .l { color: var(--muted); font-size: 14px; margin-top: 10px; line-height: 1.5; }
+  .lead-list { padding: 28px 30px; }
+  .lead-list .h { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--faint); margin-bottom: 16px; }
+  .lead-list ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .lead-list li { display: flex; align-items: center; gap: 12px; font-size: 14.5px; color: var(--text); }
+  .lead-list li .bullet {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+    background: linear-gradient(135deg, var(--indigo), var(--cyan));
+    box-shadow: 0 0 8px rgba(99,102,241,0.6);
+  }
+
+  /* ===== AI SECTION ===== */
+  .ai-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 48px; }
+  .ai-card { padding: 36px; }
+  .ai-card h3 { font-size: 25px; font-weight: 600; margin-bottom: 6px; }
+  .ai-card .sub { color: var(--cyan); font-size: 14px; font-weight: 500; margin-bottom: 18px; }
+  .ai-card p { color: var(--muted); font-size: 15.5px; line-height: 1.66; }
+  .pillars { display: flex; flex-direction: column; gap: 14px; margin-top: 22px; }
+  .pillar { display: flex; align-items: flex-start; gap: 13px; font-size: 14.5px; color: var(--muted); line-height: 1.5; }
+  .pillar .pn {
+    width: 27px; height: 27px; border-radius: 9px; flex-shrink: 0;
+    display: grid; place-items: center;
+    font-family: "Space Grotesk", sans-serif; font-size: 13px; font-weight: 600;
+    margin-top: 1px;
+  }
+  .pillar b { color: var(--text); font-weight: 600; }
+  .pillar.p1 .pn { color: #aab0ff; background: rgba(99,102,241,0.16); border: 1px solid rgba(99,102,241,0.3); }
+  .pillar.p2 .pn { color: #d4a6ff; background: rgba(168,85,247,0.16); border: 1px solid rgba(168,85,247,0.3); }
+  .pillar.p3 .pn { color: var(--cyan);   background: rgba(34,211,238,0.16); border: 1px solid rgba(34,211,238,0.3); }
+  .ai-feature { display: flex; flex-direction: column; }
+  .ai-feature .pov {
+    margin-top: auto; padding-top: 24px;
+    font-size: 14px; color: var(--faint);
+    border-top: 1px solid var(--border);
+  }
+  .ai-feature .pov b { color: var(--teal); font-weight: 500; }
+  .chip-label { font-size: 12px; color: var(--faint); letter-spacing: 0.1em; text-transform: uppercase; margin: 24px 0 12px; display: block; }
+  .chips { display: flex; flex-wrap: wrap; gap: 10px; }
+  .chip {
+    font-size: 13px; font-weight: 500;
+    padding: 8px 15px; border-radius: 999px;
+    background: var(--glass); border: 1px solid var(--border);
+    color: var(--muted); backdrop-filter: blur(8px);
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .chip:hover { border-color: var(--border-bright); color: var(--text); }
+
+  /* ===== SPEAKING ===== */
+  .speak-grid { display: grid; grid-template-columns: 1.25fr 0.75fr; gap: 22px; margin-top: 48px; align-items: stretch; }
+  .keynote-card { padding: 40px; position: relative; overflow: hidden; }
+  .keynote-card::after {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(70% 80% at 85% 0%, rgba(168,85,247,0.12), transparent 65%);
+    pointer-events: none;
+  }
+  .keynote-card .badge-row { display: flex; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 20px; position: relative; }
+  .keynote-card .badge {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 5px 11px; border-radius: 7px;
+    color: #d4a6ff; background: rgba(168,85,247,0.12); border: 1px solid rgba(168,85,247,0.28);
+  }
+  .keynote-card .when { font-size: 13px; color: var(--faint); }
+  .keynote-card h3 {
+    font-size: 28px; font-weight: 600; margin-bottom: 8px; position: relative;
+    line-height: 1.18;
+  }
+  .keynote-card .talk { font-size: 17px; color: var(--cyan); font-style: italic; margin-bottom: 16px; position: relative; }
+  .keynote-card p { color: var(--muted); font-size: 15.5px; line-height: 1.66; position: relative; }
+  .keynote-card .audience {
+    margin-top: 24px; display: flex; gap: 30px; position: relative;
+    padding-top: 22px; border-top: 1px solid var(--border);
+  }
+  .keynote-card .audience .v { font-family: "Space Grotesk", sans-serif; font-size: 26px; font-weight: 700; }
+  .keynote-card .audience .l { font-size: 12px; color: var(--faint); margin-top: 4px; }
+  .lecturer-card { padding: 36px; display: flex; flex-direction: column; }
+  .lecturer-card .ic {
+    width: 46px; height: 46px; border-radius: 13px; margin-bottom: 22px;
+    display: grid; place-items: center; color: var(--cyan);
+    background: rgba(34,211,238,0.1); border: 1px solid rgba(34,211,238,0.22);
+  }
+  .lecturer-card .ic svg { width: 22px; height: 22px; }
+  .lecturer-card h3 { font-size: 21px; font-weight: 600; margin-bottom: 6px; }
+  .lecturer-card .sub { font-size: 14px; color: var(--cyan); font-weight: 500; margin-bottom: 14px; }
+  .lecturer-card p { color: var(--muted); font-size: 15px; line-height: 1.62; }
+
+  /* ===== STATS STRIP ===== */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 18px;
+  }
+  .stat { padding: 26px 22px; }
+  .stat .num {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 1;
+    background: linear-gradient(120deg, #fff, #b9bdf0);
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .stat .num .u { font-size: 22px; color: var(--cyan); -webkit-text-fill-color: var(--cyan); }
+  .stat .lbl { color: var(--muted); font-size: 13.5px; margin-top: 12px; line-height: 1.45; }
+
+  /* ===== OPEN SOURCE (CONDENSED) ===== */
+  .os-card { padding: 44px 48px; position: relative; overflow: hidden; }
+  .os-card::after {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(60% 100% at 100% 50%, rgba(45,212,191,0.08), transparent 70%);
+    pointer-events: none;
+  }
+  .os-inner { display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; position: relative; }
+  .os-card h3 { font-size: 24px; font-weight: 600; margin-bottom: 14px; }
+  .os-card p { color: var(--muted); font-size: 16px; line-height: 1.7; max-width: 640px; }
+  .os-card p strong { color: var(--text); font-weight: 600; }
+  .os-link {
+    display: inline-flex; align-items: center; gap: 9px;
+    margin-top: 22px; font-size: 14px; font-weight: 600; color: var(--cyan);
+    transition: gap 0.2s;
+  }
+  .os-link:hover { gap: 13px; }
+  .os-link svg { width: 16px; height: 16px; }
+  .os-figure {
+    display: flex; flex-direction: column; align-items: center;
+    padding: 24px 30px; border-radius: 16px;
+    background: var(--glass); border: 1px solid var(--border);
+    min-width: 180px;
+  }
+  .os-figure .big {
+    font-family: "Space Grotesk", sans-serif; font-size: 48px; font-weight: 700; line-height: 1;
+    background: linear-gradient(120deg, var(--cyan), var(--violet));
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .os-figure .cap { font-size: 13px; color: var(--faint); margin-top: 10px; text-align: center; }
+
+  /* ===== TIMELINE ===== */
+  .timeline { margin-top: 48px; position: relative; padding-left: 30px; }
+  .timeline::before {
+    content: ""; position: absolute; left: 5px; top: 8px; bottom: 8px; width: 2px;
+    background: linear-gradient(180deg, var(--teal), var(--violet) 50%, transparent);
+  }
+  .tl-item { position: relative; padding: 0 0 28px 28px; }
+  .tl-item:last-child { padding-bottom: 0; }
+  .tl-item::before {
+    content: ""; position: absolute; left: -30px; top: 6px;
+    width: 12px; height: 12px; border-radius: 50%;
+    background: var(--base); border: 2px solid var(--violet);
+    box-shadow: 0 0 12px 1px rgba(168,85,247,0.6);
+  }
+  .tl-item.now::before { background: var(--teal); border-color: var(--teal); box-shadow: 0 0 14px 2px var(--teal); }
+  .tl-item .yr { font-family: "Space Grotesk", sans-serif; font-size: 13px; font-weight: 600; color: var(--cyan); letter-spacing: 0.04em; }
+  .tl-item .ttl { font-size: 17px; font-weight: 600; margin-top: 2px; }
+  .tl-item .ttl .tag {
+    font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--teal); border: 1px solid rgba(45,212,191,0.4); border-radius: 5px;
+    padding: 2px 7px; margin-left: 10px; vertical-align: middle;
+  }
+  .tl-item .org { font-size: 14px; color: var(--muted); margin-top: 2px; }
+  .tl-item .org .loc { color: var(--faint); }
+
+  /* ===== EXPERTISE ===== */
+  .exp-grid { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 42px; }
+  .tag {
+    font-size: 15px; font-weight: 500;
+    padding: 12px 20px; border-radius: 14px;
+    background: linear-gradient(180deg, var(--glass-strong), var(--glass));
+    border: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .tag:hover { border-color: var(--border-bright); transform: translateY(-2px); }
+  .tag .ic { color: var(--cyan); margin-right: 8px; }
+  .tag.key {
+    border-color: rgba(99,102,241,0.4);
+    background: linear-gradient(180deg, rgba(99,102,241,0.12), rgba(99,102,241,0.04));
+  }
+  .tag.key .ic { color: var(--violet); }
+
+  /* ===== CONTACT ===== */
+  .contact-card {
+    padding: 60px 56px;
+    position: relative;
+    overflow: hidden;
+  }
+  .contact-card::before {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(70% 90% at 50% 0%, rgba(99,102,241,0.18), transparent 65%);
+    pointer-events: none;
+  }
+  .contact-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 56px; align-items: center; position: relative; }
+  .contact-card h2 { font-size: 44px; font-weight: 700; margin-bottom: 18px; }
+  .contact-card h2 .grad {
+    background: linear-gradient(110deg, var(--cyan), var(--violet));
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .contact-card h2 em { font-style: italic; }
+  .contact-card .sub { color: var(--muted); font-size: 17px; max-width: 440px; line-height: 1.66; margin-bottom: 32px; }
+  .contact-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+  .contact-rows { display: flex; flex-direction: column; }
+  .cc-row {
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    padding: 16px 4px; border-bottom: 1px solid var(--border);
+    transition: padding-left 0.2s, color 0.2s;
+  }
+  .cc-row:last-child { border-bottom: none; }
+  .cc-row:hover { padding-left: 10px; }
+  .cc-label { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--faint); }
+  .cc-val { font-size: 15px; color: var(--text); display: inline-flex; align-items: center; gap: 8px; transition: color 0.2s; text-align: right; }
+  .cc-row:hover .cc-val { color: var(--cyan); }
+  .cc-val.email { font-family: "Space Grotesk", sans-serif; font-size: 17px; }
+
+  /* ===== FOOTER ===== */
+  footer { padding: 40px 0 60px; border-top: 1px solid rgba(255,255,255,0.06); margin-top: 60px; }
+  .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; }
+  .footer-inner .copy { font-size: 13px; color: var(--faint); margin-top: 2px; }
+  .footer-links { display: flex; gap: 10px; }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 980px) {
+    .lead-grid, .speak-grid, .os-inner, .contact-grid { grid-template-columns: 1fr; }
+    .stats-grid { grid-template-columns: repeat(3, 1fr); }
+    .os-figure { justify-self: start; }
+  }
+  @media (max-width: 860px) {
+    .nav-links .link { display: none; }
+    .hero-grid, .ai-grid { grid-template-columns: 1fr; }
+    .stats-grid { grid-template-columns: 1fr 1fr; }
+    .hero h1 { font-size: 46px; }
+    .section-title, .contact-card h2 { font-size: 32px; }
+    section { padding: 70px 0; }
+    .contact-card, .os-card, .lead-prose, .keynote-card { padding: 32px 24px; }
+    .container { padding: 0 20px; }
+  }
+  @media (max-width: 480px) {
+    .stats-grid { grid-template-columns: 1fr; }
+    .hero h1 { font-size: 40px; }
+    .cc-row { flex-direction: column; align-items: flex-start; gap: 4px; }
+    .cc-val { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<div class="aurora" aria-hidden="true">
+  <div class="blob3"></div>
+  <div class="blob4"></div>
+</div>
+<div class="grain" aria-hidden="true"></div>
+
+<!-- ===== NAV ===== -->
+<nav>
+  <div class="container nav-inner">
+    <a href="#top" class="brand">
+      <span class="monogram">PJ</span>
+      <span class="brand-name">Philipp Jahoda <span>· Linz</span></span>
+    </a>
+    <div class="nav-links">
+      <a class="link" href="#now">Now</a>
+      <a class="link" href="#ai">AI</a>
+      <a class="link" href="#speaking">Speaking</a>
+      <a class="link" href="#about">About</a>
+      <a class="link" href="#contact">Contact</a>
+      <a class="btn btn-glow" href="#contact">Get in touch</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===== HERO ===== -->
+<header class="hero container" id="top">
+  <div class="hero-grid">
+    <div>
+      <span class="pill"><span class="dot"></span> CTO &amp; Co-Founder · Ahoi Kapptn</span>
+      <h1>Philipp <span class="grad">Jahoda</span></h1>
+      <p class="role-line">Software engineer &amp; entrepreneur <span class="accent">·</span> Linz, Austria</p>
+      <p class="tagline">
+        A decade leading engineering as a CTO &amp; Co-Founder — today a team of 15+ engineers
+        building mobile, web, backend and AI products, and the infrastructure behind them.
+      </p>
+      <div class="cred-line">
+        Keynote speaker <span class="sep">·</span> a decade as CTO &amp; Co-Founder <span class="sep">·</span> 15+ years shipping software
+      </div>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#contact">
+          Get in touch
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <div class="secondary">
+          <a class="icon-link" href="https://github.com/PhilJay" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.4-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.4 11.4 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .4.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
+          </a>
+          <a class="icon-link" href="https://www.linkedin.com/in/philippjahoda" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2zM8 19H5V8h3v11zM6.5 6.7a1.8 1.8 0 1 1 0-3.6 1.8 1.8 0 0 1 0 3.6zM19 19h-3v-5.6c0-1.4-.5-2.3-1.7-2.3-1 0-1.5.6-1.8 1.3-.1.2-.1.5-.1.8V19h-3V8h3v1.5c.4-.6 1.2-1.5 2.9-1.5 2.1 0 3.7 1.4 3.7 4.3V19z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- HERO CHART (generic data-viz, no project named) -->
+    <div class="glass chart-card">
+      <div class="chart-head">
+        <div>
+          <div class="label">A decade of technical leadership</div>
+          <div class="value">15+ <small>engineers led today</small></div>
+        </div>
+        <div class="chart-legend">
+          <span><span class="lg-dot" style="background:var(--cyan)"></span> Scope</span>
+          <span><span class="lg-dot" style="background:var(--violet)"></span> Team</span>
+        </div>
+      </div>
+      <svg class="chart-svg" viewBox="0 0 520 280" preserveAspectRatio="xMidYMid meet" role="img" aria-label="A glowing area chart illustrating a decade of growing technical scope and team size, from 2016 to today.">
+        <defs>
+          <linearGradient id="areaFill" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.45"/>
+            <stop offset="100%" stop-color="#22d3ee" stop-opacity="0"/>
+          </linearGradient>
+          <linearGradient id="areaFill2" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#a855f7" stop-opacity="0.3"/>
+            <stop offset="100%" stop-color="#a855f7" stop-opacity="0"/>
+          </linearGradient>
+          <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#6366f1"/>
+            <stop offset="55%" stop-color="#22d3ee"/>
+            <stop offset="100%" stop-color="#2dd4bf"/>
+          </linearGradient>
+          <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="4.5" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+
+        <!-- grid -->
+        <g stroke="rgba(255,255,255,0.06)" stroke-width="1">
+          <line x1="0" y1="60" x2="520" y2="60"/>
+          <line x1="0" y1="120" x2="520" y2="120"/>
+          <line x1="0" y1="180" x2="520" y2="180"/>
+          <line x1="0" y1="240" x2="520" y2="240"/>
+        </g>
+
+        <!-- secondary (team) area -->
+        <path d="M0,210 C70,205 110,190 170,170 C230,150 270,145 330,120 C390,98 440,92 520,72 L520,280 L0,280 Z" fill="url(#areaFill2)"/>
+        <path class="draw d2" d="M0,210 C70,205 110,190 170,170 C230,150 270,145 330,120 C390,98 440,92 520,72"
+              fill="none" stroke="#a855f7" stroke-width="2" stroke-opacity="0.7" stroke-linecap="round"/>
+
+        <!-- primary (scope) area -->
+        <path d="M0,235 C60,232 100,220 160,200 C220,180 260,150 320,110 C380,70 430,48 520,28 L520,280 L0,280 Z" fill="url(#areaFill)"/>
+        <path class="draw" d="M0,235 C60,232 100,220 160,200 C220,180 260,150 320,110 C380,70 430,48 520,28"
+              fill="none" stroke="url(#lineGrad)" stroke-width="3.5" stroke-linecap="round" filter="url(#glow)"/>
+
+        <!-- data points -->
+        <g>
+          <circle cx="160" cy="200" r="4" fill="#0a0a12" stroke="#22d3ee" stroke-width="2.5"/>
+          <circle cx="320" cy="110" r="4" fill="#0a0a12" stroke="#22d3ee" stroke-width="2.5"/>
+          <circle cx="520" cy="28" r="5.5" fill="#22d3ee" filter="url(#glow)"/>
+        </g>
+        <!-- x labels -->
+        <g fill="#7e82a4" font-family="Inter, sans-serif" font-size="11">
+          <text x="0" y="270">2016</text>
+          <text x="150" y="270">startup</text>
+          <text x="300" y="270">agency</text>
+          <text x="476" y="270">today</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<!-- ===== LEADERSHIP & WHAT I DO NOW ===== -->
+<section class="container" id="now">
+  <span class="eyebrow">Leadership &amp; what I do now</span>
+  <h2 class="section-title">A decade leading engineers — <em>and the architecture they build.</em></h2>
+  <p class="section-sub">
+    At <strong style="color:var(--text);font-weight:600">Ahoi Kapptn!</strong>, I own the technology end to end — the people, the direction, and the
+    systems that keep running long after launch.
+  </p>
+
+  <div class="lead-grid">
+    <article class="glass lead-prose">
+      <p>
+        <span class="dropcap">F</span>or roughly ten years I've been a CTO &amp; Co-Founder — first scaling
+        a startup, <strong>Butleroy</strong>, now an agency, <strong>Ahoi Kapptn</strong>. Two very different
+        settings, one lesson: a product is only as durable as the team and the architecture behind it.
+      </p>
+      <p>
+        Today I lead <strong>15+ engineers</strong> and own the technology end to end — mobile and web apps,
+        backends, cloud infrastructure, DevOps and AI. I set the direction, grow the team, and still build across
+        the whole stack.
+      </p>
+    </article>
+
+    <div class="lead-side">
+      <div class="glass lead-stat">
+        <div class="n">~10 years</div>
+        <div class="l">as a CTO &amp; Co-Founder, across a startup and an agency.</div>
+      </div>
+      <div class="glass lead-list">
+        <div class="h">What I own</div>
+        <ul>
+          <li><span class="bullet"></span> Technical leadership &amp; direction</li>
+          <li><span class="bullet"></span> Hiring &amp; growing engineers</li>
+          <li><span class="bullet"></span> Backend &amp; system architecture</li>
+          <li><span class="bullet"></span> Cloud infrastructure &amp; DevOps</li>
+          <li><span class="bullet"></span> AI, agentic workflows &amp; automations</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== AI ===== -->
+<section class="container" id="ai" style="padding-top:115px">
+  <span class="eyebrow">Artificial Intelligence &amp; Sports</span>
+  <h2 class="section-title">An <em>AI-native</em> platform for elite sport.</h2>
+  <p class="section-sub">
+    Currently building <strong style="color:var(--text);font-weight:600">AhoiSports</strong> — bringing AI into the
+    everyday operations of professional sports organizations, where it has to earn its place rather than simply impress.
+  </p>
+
+  <div class="ai-grid">
+    <article class="glass ai-card ai-feature">
+      <h3>AhoiSports</h3>
+      <div class="sub">AI-native platform for professional sports organizations</div>
+      <p>
+        Built around three pillars — and beneath them, a system designed to act, not just report. AI agents
+        detect trends across live data and trigger the right workflows, model-routing sends each task to the
+        model best suited to it, and a data platform keeps every club in full ownership of its data.
+      </p>
+      <div class="pillars">
+        <div class="pillar p1"><span class="pn">1</span><span><b>Fan Engagement</b> — deepening the relationship between clubs and their supporters.</span></div>
+        <div class="pillar p2"><span class="pn">2</span><span><b>Commercial Operations</b> — turning data into sharper decisions and everyday efficiency.</span></div>
+        <div class="pillar p3"><span class="pn">3</span><span><b>Sport Performance</b> — intelligence for the people on the pitch.</span></div>
+      </div>
+    </article>
+
+    <article class="glass ai-card ai-feature">
+      <h3>Built into the work</h3>
+      <div class="sub">Where the platform earns its keep</div>
+      <p>
+        The interesting part of applied AI isn't the demo — it's the plumbing underneath: agents, model-routing,
+        and a data layer each club fully owns. AI that disappears into the product and simply makes it better.
+      </p>
+      <a class="os-link" href="https://ahoisports.com" target="_blank" rel="noopener" style="margin-top:24px">
+        Visit ahoisports.com
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+      </a>
+      <p class="pov">My point of view on all of it: <b>less hype, more everyday</b> — how AI actually works in business.</p>
+    </article>
+  </div>
+</section>
+
+<!-- ===== SPEAKING / KEYNOTE ===== -->
+<section class="container" id="speaking" style="padding-top:115px">
+  <span class="eyebrow">Speaking &amp; teaching</span>
+  <h2 class="section-title">Trusted to take the stage on <em>technology &amp; AI in business.</em></h2>
+  <p class="section-sub">
+    I speak to industry and business audiences about what artificial intelligence really changes in
+    practice — and I've spent years teaching the next generation of mobile engineers.
+  </p>
+
+  <div class="speak-grid">
+    <article class="glass keynote-card">
+      <div class="badge-row">
+        <span class="badge">Keynote</span>
+        <span class="when">BTM Event 2026 · Vienna · May 2026</span>
+      </div>
+      <h3>A keynote to 400+ industry &amp; business leaders.</h3>
+      <div class="talk">"Wie AI wirklich im Business funktioniert" — how AI really works in business</div>
+      <p>
+        At BTM Event 2026 in Vienna I took the stage before 400+ industry and business leaders to cut through
+        the noise around AI — separating what genuinely moves a business from what merely makes headlines.
+      </p>
+      <div class="audience">
+        <div>
+          <div class="v">400+</div>
+          <div class="l">industry &amp; business leaders</div>
+        </div>
+      </div>
+    </article>
+
+    <article class="glass lecturer-card">
+      <div class="ic">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+      </div>
+      <h3>Lecturer, Mobile Development</h3>
+      <div class="sub">FH Hagenberg</div>
+      <p>
+        I spent 5+ years lecturing in mobile development at FH Hagenberg — turning hard-won, real-world
+        experience into something the next generation of engineers can build on.
+      </p>
+    </article>
+  </div>
+</section>
+
+<!-- ===== OPEN SOURCE (CONDENSED) ===== -->
+<section class="container" style="padding-top:115px">
+  <span class="eyebrow">Open source</span>
+  <h2 class="section-title">A library that quietly ended up <em>everywhere</em>.</h2>
+
+  <div class="glass os-card">
+    <div class="os-inner">
+      <div>
+        <h3>MPAndroidChart &amp; its Apple sibling</h3>
+        <p>
+          Earlier in my career I created <strong>MPAndroidChart</strong> — for over a decade the
+          <strong>industry standard for charts</strong>, now used in <strong>thousands of apps</strong> and installed
+          <strong>billions of times</strong> on devices worldwide. Together with its Apple sibling, my open-source
+          projects have earned around <strong>66,000 GitHub stars</strong>.
+        </p>
+        <p style="margin-top:16px;font-size:14.5px;color:var(--teal);display:flex;align-items:flex-start;gap:9px;line-height:1.55">
+          <span aria-hidden="true" style="opacity:.85">✶</span>
+          <span>Ask an AI assistant which charting library to use on Android — and it still recommends MPAndroidChart.</span>
+        </p>
+        <a class="os-link" href="https://github.com/PhilJay" target="_blank" rel="noopener">
+          View my work on GitHub
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+        </a>
+      </div>
+      <div class="os-figure">
+        <div class="big">~66K</div>
+        <div class="cap">GitHub stars across<br/>open-source projects</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TRACK RECORD ===== -->
+<section class="container" id="about" style="padding-top:115px">
+  <span class="eyebrow">Track record</span>
+  <h2 class="section-title">Fifteen years building, <em>across</em> ventures and continents.</h2>
+  <p class="section-sub">
+    My path runs through the full arc of building and shipping software — from a master's in Mobile Computing
+    to open source used the world over, and on to leading engineering teams of my own.
+  </p>
+
+  <div class="timeline">
+    <div class="tl-item now">
+      <div class="yr">2026 — now</div>
+      <div class="ttl">CTO &amp; Co-Founder <span class="tag">Current</span></div>
+      <div class="org">AhoiSports — AI-native platform for professional sport</div>
+    </div>
+    <div class="tl-item now">
+      <div class="yr">2020 — now</div>
+      <div class="ttl">Ahoi Kapptn <span class="tag">Current</span></div>
+      <div class="org">Digital product studio <span class="loc">· Linz, Austria</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="yr">2016 — 2024</div>
+      <div class="ttl">CTO &amp; Co-Founder</div>
+      <div class="org">Butleroy — AI calendar assistant · SXSW 2017 finalist</div>
+    </div>
+    <div class="tl-item">
+      <div class="yr">2015 — 2016</div>
+      <div class="ttl">Consultant</div>
+      <div class="org">Realm <span class="loc">· San Francisco</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="yr">2015</div>
+      <div class="ttl">Mobile Developer</div>
+      <div class="org">Runtastic</div>
+    </div>
+    <div class="tl-item">
+      <div class="yr">2014 — 2015</div>
+      <div class="ttl">Co-Founder</div>
+      <div class="org">Cycle Savers — out to digitalize on-demand bike repair <span class="loc">· Copenhagen</span></div>
+    </div>
+    <div class="tl-item">
+      <div class="yr">2014</div>
+      <div class="ttl">Created MPAndroidChart <span class="tag">Open source</span></div>
+      <div class="org">Launched the open-source charting library now used in thousands of apps</div>
+    </div>
+    <div class="tl-item">
+      <div class="yr">Education</div>
+      <div class="ttl">Master's Degree, Mobile Computing</div>
+      <div class="org">FH Hagenberg</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section class="container" id="contact" style="padding-top:140px">
+  <div class="glass contact-card">
+    <div class="contact-grid">
+      <div>
+        <span class="eyebrow">Get in touch</span>
+        <h2>Let's build something <span class="grad">worth</span> talking about.</h2>
+        <p class="sub">
+          Whether you're looking for an engineering leader, a technical partner for your next mobile, web
+          or AI product, or a speaker for your stage — I'd be glad to hear from you.
+        </p>
+        <div class="contact-actions">
+          <a class="btn btn-glow" href="https://www.linkedin.com/in/philippjahoda" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2zM8 19H5V8h3v11zM6.5 6.7a1.8 1.8 0 1 1 0-3.6 1.8 1.8 0 0 1 0 3.6zM19 19h-3v-5.6c0-1.4-.5-2.3-1.7-2.3-1 0-1.5.6-1.8 1.3-.1.2-.1.5-.1.8V19h-3V8h3v1.5c.4-.6 1.2-1.5 2.9-1.5 2.1 0 3.7 1.4 3.7 4.3V19z"/></svg>
+            Connect on LinkedIn
+          </a>
+          <a class="btn btn-ghost" href="https://github.com/PhilJay" target="_blank" rel="noopener">View GitHub</a>
+        </div>
+      </div>
+
+      <div class="contact-rows">
+        <a class="cc-row" href="https://www.linkedin.com/in/philippjahoda" target="_blank" rel="noopener">
+          <span class="cc-label">LinkedIn</span>
+          <span class="cc-val">in/philippjahoda &rarr;</span>
+        </a>
+        <a class="cc-row" href="https://github.com/PhilJay" target="_blank" rel="noopener">
+          <span class="cc-label">GitHub</span>
+          <span class="cc-val">@PhilJay &rarr;</span>
+        </a>
+        <a class="cc-row" href="https://stackoverflow.com/users/1590502/philipp-jahoda" target="_blank" rel="noopener">
+          <span class="cc-label">Stack Overflow</span>
+          <span class="cc-val">51K+ reputation &rarr;</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="container footer-inner">
+    <div class="brand">
+      <span class="monogram">PJ</span>
+      <div>
+        <div class="brand-name">Philipp Jahoda</div>
+        <div class="copy">CTO &amp; Co-Founder · Ahoi Kapptn · Linz, Austria</div>
+      </div>
+    </div>
+    <div class="footer-links">
+      <a class="icon-link" href="https://github.com/PhilJay" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.4-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.4 11.4 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .4.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
+      </a>
+      <a class="icon-link" href="https://www.linkedin.com/in/philippjahoda" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2zM8 19H5V8h3v11zM6.5 6.7a1.8 1.8 0 1 1 0-3.6 1.8 1.8 0 0 1 0 3.6zM19 19h-3v-5.6c0-1.4-.5-2.3-1.7-2.3-1 0-1.5.6-1.8 1.3-.1.2-.1.5-.1.8V19h-3V8h3v1.5c.4-.6 1.2-1.5 2.9-1.5 2.1 0 3.7 1.4 3.7 4.3V19z"/></svg>
+      </a>
+      <a class="icon-link" href="https://stackoverflow.com/users/1590502/philipp-jahoda" target="_blank" rel="noopener" aria-label="Stack Overflow" title="Stack Overflow">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.36 20.2v-5.38h1.79V22H3v-7.18h1.8v5.38h12.56zM6.77 14.32l.37-1.76 8.79 1.85-.37 1.76-8.79-1.85zm1.16-4.21l.76-1.61 8.14 3.78-.76 1.62-8.14-3.79zm2.26-3.99l1.15-1.38 6.9 5.76-1.15 1.37-6.9-5.75zM14.65 2l5.52 7.42-1.45 1.07L13.2 3.07 14.65 2zM6.59 18.41v-1.8h8.95v1.8H6.59z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
