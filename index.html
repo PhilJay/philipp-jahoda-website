@@ -590,7 +590,7 @@
   /* ===== GALLERY ===== */
   .gallery { overflow: hidden; margin-top: 44px; -webkit-mask-image: linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent); mask-image: linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent); }
   .gallery .track { display: flex; width: max-content; }
-  .gallery .track.animate { animation: marquee var(--dur,40s) linear infinite; }
+  .gallery .track.animate { animation: marquee var(--dur,40s) linear infinite; will-change: transform; backface-visibility: hidden; }
   .gallery .track.animate:hover { animation-play-state: paused; }
   .gallery .track.static { width: 100%; justify-content: center; }
   .gallery .tile { flex: 0 0 auto; height: 300px; margin-right: 18px; position: relative; overflow: hidden; border-radius: 14px; cursor: pointer; border: 1px solid var(--border); background: #0d1320; }
@@ -607,11 +607,9 @@
   .gallery .tile.selected img { transform: scale(1.06); filter: grayscale(.35) contrast(1.03) brightness(1); }
   .gallery .tile.selected .gtint { opacity: .5; }
   .gallery .tile.selected .gcap { transform: translateY(0); opacity: 1; }
-  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @keyframes marquee { from { transform: translate3d(0,0,0); } to { transform: translate3d(-50%,0,0); } }
   @media (prefers-reduced-motion: reduce) { .gallery .track.animate { animation: none; } }
   @media (max-width: 700px) { .gallery .tile { height: 260px; } }
-  /* touch devices have no hover — show gallery captions by default */
-  @media (hover: none) { .gallery .tile .gcap { opacity: 1; transform: none; } .gallery .tile .gtint { opacity: .5; } }
 
   /* ===== CONTACT ===== */
   .contact-card {
@@ -1085,23 +1083,25 @@
       '<figcaption class="gcap"><h4>'+esc(it.title)+'</h4>'+(it.subtitle?'<p>'+esc(it.subtitle)+'</p>':'')+'</figcaption>'+
       '</figure>';
   }
-  // Touch devices: tap a tile to pause the auto-scroll and zoom it in; tap again to resume. Desktop keeps hover.
+  // Touch devices: tap a tile to pause the auto-scroll, show its caption and zoom it in; tap it again,
+  // another tile, or anywhere else to unselect and resume. Desktop keeps hover and is untouched.
   function setupTouch(){
     if(!window.matchMedia||!window.matchMedia("(hover: none)").matches)return;
     var selected=null;
-    track.addEventListener("click",function(e){
+    function deselect(){
+      if(!selected)return;
+      selected.classList.remove("selected");
+      track.classList.remove("paused");
+      selected=null;
+    }
+    document.addEventListener("click",function(e){
       var t=e.target&&e.target.closest?e.target.closest(".tile"):null;
-      if(!t)return;
-      if(selected===t){
-        t.classList.remove("selected");
-        track.classList.remove("paused");
-        selected=null;
-      }else{
-        if(selected)selected.classList.remove("selected");
-        t.classList.add("selected");
-        track.classList.add("paused");
-        selected=t;
-      }
+      if(!t||!track.contains(t)){deselect();return;}
+      if(selected===t){deselect();return;}
+      if(selected)selected.classList.remove("selected");
+      t.classList.add("selected");
+      track.classList.add("paused");
+      selected=t;
     });
   }
   fetch("assets/gallery/gallery.json",{cache:"no-store"})
