@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Philipp Jahoda — CTO &amp; Co-Founder, Ahoi Kapptn</title>
-<meta name="description" content="Philipp Jahoda — CTO &amp; Co-Founder at Ahoi Kapptn in Linz, Austria. A decade leading engineering teams across a startup and an agency, building mobile, web, backend and AI products. Keynote speaker and university lecturer." />
+<meta name="description" content="Philipp Jahoda — CTO &amp; Co-Founder at Ahoi Kapptn in Austria. A decade leading engineering teams across a startup and an agency, building mobile, web, backend and AI products. Keynote speaker and university lecturer." />
 <meta name="theme-color" content="#0a0c13" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -146,6 +146,10 @@
   /* ===== LAYOUT ===== */
   .container { max-width: var(--maxw); margin: 0 auto; padding: 0 32px; }
   section { padding: 100px 0; position: relative; }
+  /* land anchored sections just below the sticky nav despite their large top padding */
+  section[id] { scroll-margin-top: -22px; }
+  #ai, #speaking, #about { scroll-margin-top: -37px; }
+  #contact { scroll-margin-top: -62px; }
 
   .eyebrow {
     display: inline-flex;
@@ -654,12 +658,11 @@
 <!-- ===== NAV ===== -->
 <nav>
   <div class="container nav-inner">
-    <a href="#top" class="brand">
+    <a href="#top" class="brand" aria-label="Philipp Jahoda — back to top">
       <span class="monogram">PJ</span>
-      <span class="brand-name">Philipp Jahoda <span>· Linz</span></span>
     </a>
     <div class="nav-links">
-      <a class="link" href="#now">Now</a>
+      <a class="link" href="#now">Leadership &amp; Engineering</a>
       <a class="link" href="#ai">AI</a>
       <a class="link" href="#speaking">Speaking</a>
       <a class="link" href="#about">About</a>
@@ -675,7 +678,7 @@
     <div>
       <span class="pill"><span class="dot"></span> CTO &amp; Co-Founder · Ahoi Kapptn</span>
       <h1>Philipp Jahoda</h1>
-      <p class="role-line">Software engineer &amp; entrepreneur <span class="accent">·</span> Linz, Austria</p>
+      <p class="role-line">Software engineer &amp; entrepreneur <span class="accent">·</span> Austria</p>
       <p class="tagline">
         A decade leading engineering as a CTO &amp; Co-Founder — today a team of 15+ engineers
         building mobile, web, backend and AI products, and the infrastructure behind them.
@@ -884,7 +887,7 @@
     <div class="tl-item now">
       <div class="yr">2020 — now</div>
       <div class="ttl">Ahoi Kapptn <span class="tag">Current</span></div>
-      <div class="org">Digital product studio <span class="loc">· Linz, Austria</span></div>
+      <div class="org">Digital product studio <span class="loc">· Austria</span></div>
     </div>
     <div class="tl-item">
       <div class="yr">2016 — 2024</div>
@@ -964,7 +967,7 @@
       <span class="monogram">PJ</span>
       <div>
         <div class="brand-name">Philipp Jahoda</div>
-        <div class="copy">CTO &amp; Co-Founder · Ahoi Kapptn · Linz, Austria</div>
+        <div class="copy">CTO &amp; Co-Founder · Ahoi Kapptn · Austria</div>
       </div>
     </div>
     <div class="footer-links">
