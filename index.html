@@ -602,6 +602,11 @@
   .gallery .tile:hover img { transform: scale(1.05); filter: grayscale(.35) contrast(1.03) brightness(1); }
   .gallery .tile:hover .gtint { opacity: .5; }
   .gallery .tile:hover .gcap { transform: translateY(0); opacity: 1; }
+  /* mobile tap-to-select: JS adds these classes only on touch devices, so desktop hover is unchanged */
+  .gallery .track.animate.paused { animation-play-state: paused; }
+  .gallery .tile.selected img { transform: scale(1.06); filter: grayscale(.35) contrast(1.03) brightness(1); }
+  .gallery .tile.selected .gtint { opacity: .5; }
+  .gallery .tile.selected .gcap { transform: translateY(0); opacity: 1; }
   @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
   @media (prefers-reduced-motion: reduce) { .gallery .track.animate { animation: none; } }
   @media (max-width: 700px) { .gallery .tile { height: 260px; } }
@@ -966,7 +971,7 @@
 <!-- ===== GALLERY ===== -->
 <section class="container" id="gallery" style="padding-top:115px">
   <span class="eyebrow">Gallery</span>
-  <h2 class="section-title">Insights <em>beyond</em> coding & problem solving</h2>
+  <h2 class="section-title">Insights <em>beyond</em> coding & problem solving.</h2>
   <p class="section-sub">A few moments — talks, the team, sports and the things that keep me focused.</p>
   <div class="gallery"><div class="track" id="gallery-track"></div></div>
 </section>
@@ -1080,6 +1085,25 @@
       '<figcaption class="gcap"><h4>'+esc(it.title)+'</h4>'+(it.subtitle?'<p>'+esc(it.subtitle)+'</p>':'')+'</figcaption>'+
       '</figure>';
   }
+  // Touch devices: tap a tile to pause the auto-scroll and zoom it in; tap again to resume. Desktop keeps hover.
+  function setupTouch(){
+    if(!window.matchMedia||!window.matchMedia("(hover: none)").matches)return;
+    var selected=null;
+    track.addEventListener("click",function(e){
+      var t=e.target&&e.target.closest?e.target.closest(".tile"):null;
+      if(!t)return;
+      if(selected===t){
+        t.classList.remove("selected");
+        track.classList.remove("paused");
+        selected=null;
+      }else{
+        if(selected)selected.classList.remove("selected");
+        t.classList.add("selected");
+        track.classList.add("paused");
+        selected=t;
+      }
+    });
+  }
   fetch("assets/gallery/gallery.json",{cache:"no-store"})
     .then(function(r){if(!r.ok)throw new Error("HTTP "+r.status);return r.json();})
     .then(function(items){
@@ -1089,6 +1113,7 @@
         track.innerHTML=base+items.map(function(it){return tile(it,true);}).join("");
         track.classList.add("animate");
         track.style.setProperty("--dur",(items.length*5.5)+"s");
+        setupTouch();
       }else{track.innerHTML=base;track.classList.add("static");}
     })
     .catch(function(){track.parentNode.parentNode.style.display="none";});
