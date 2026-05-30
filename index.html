@@ -407,7 +407,7 @@
   }
   .lead-prose strong { color: var(--text); font-weight: 600; }
   .lead-side { display: flex; flex-direction: column; gap: 22px; }
-  .lead-stat { padding: 28px 30px; }
+  .lead-stat { padding: 28px 30px; display: flex; flex-direction: column; }
   .lead-stat .n {
     font-family: "Space Grotesk", "Space Grotesk Fallback", sans-serif;
     font-size: 40px; font-weight: 700; line-height: 1;
@@ -416,7 +416,7 @@
   }
   .lead-stat .l { color: var(--muted); font-size: 14px; margin-top: 10px; line-height: 1.5; }
   .lead-list { padding: 28px 30px; }
-  .lead-list .h { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--faint); margin-bottom: 16px; }
+  .lead-stat .h, .lead-list .h { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--faint); margin-bottom: 16px; }
   .lead-list ul { list-style: none; display: flex; flex-direction: column; gap: 12px; }
   .lead-list li { display: flex; align-items: center; gap: 12px; font-size: 14.5px; color: var(--text); }
   .lead-list li .bullet {
@@ -723,7 +723,7 @@
       <p class="role-line">Software engineer &amp; entrepreneur <span class="accent">·</span> Austria</p>
       <p class="tagline">
         I love sports, engaging with people, and building things. As a CTO &amp; Co-Founder of
-        <strong>Ahoi Kapptn</strong> and <strong>AhoiSports</strong>, I get to do just that—leading a team of
+        <strong style="color:var(--text);font-weight:600">Ahoi Kapptn</strong> and <strong style="color:var(--text);font-weight:600">AhoiSports</strong>, I get to do just that — leading a team of
         15+ engineers creating mobile, web, backend, and AI products, alongside the infrastructure that powers them.
       </p>
       <div class="cred-line">
@@ -757,44 +757,30 @@
 <!-- ===== LEADERSHIP & WHAT I DO NOW ===== -->
 <section class="container" id="now" style="padding-top:128px">
   <span class="eyebrow">What I do</span>
-  <h2 class="section-title">Leading engineers — <em>and the architecture they build.</em></h2>
+  <h2 class="section-title">Leading engineers — <em>and the products they build.</em></h2>
   <p class="section-sub">
-    As CTO at <strong style="color:var(--text);font-weight:600">Ahoi Kapptn!</strong>, I use technology to solve real business problems — aligning the team, setting the direction, and building the systems that keep running long after launch.
+    As CTO at <strong style="color:var(--text);font-weight:600">Ahoi Kapptn!</strong>, I use technology to solve real business problems — aligning the team, setting the direction, and building the systems that keep running long after launch. Increasingly, that means <strong style="color:var(--text);font-weight:600">putting AI to work</strong> as part of the team — and helping other companies do the same.
   </p>
 
   <div class="lead-grid">
-    <article class="glass lead-prose">
-      <p>
-        <span class="dropcap">F</span>or roughly ten years I've been a CTO &amp; Co-Founder — first scaling
-        a startup, <strong>Butleroy</strong>, now an agency, <strong>Ahoi Kapptn</strong>. Two very different
-        settings, one lesson: a product is only as durable as the team, the problem it solves and the architecture behind it.
-      </p>
-      <p>
-        Today I lead <strong>15+ engineers</strong> and own the technology end to end — mobile and web apps,
-        backends, cloud infrastructure, DevOps and AI. I set the direction, grow the team, and still build across
-        the whole stack.
-      </p>
+    <div class="glass lead-stat">
+      <div class="h">Track record</div>
+      <div class="n">10+ years</div>
+      <div class="l">as employee, CTO &amp; Co-Founder, across startups and an agency.</div>
       <a class="os-link" href="https://ahoikapptn.com" target="_blank" rel="noopener" style="margin-top:auto;padding-top:22px">
         Visit ahoikapptn.com
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
       </a>
-    </article>
-
-    <div class="lead-side">
-      <div class="glass lead-stat">
-        <div class="n">~10 years</div>
-        <div class="l">as a CTO &amp; Co-Founder, across a startup and an agency.</div>
-      </div>
-      <div class="glass lead-list">
-        <div class="h">What I own</div>
-        <ul>
-          <li><span class="bullet"></span> Technical leadership &amp; direction</li>
-          <li><span class="bullet"></span> Growing engineers &amp; shaping teams</li>
-          <li><span class="bullet"></span> Backend &amp; system architecture</li>
-          <li><span class="bullet"></span> Cloud infrastructure &amp; DevOps</li>
-          <li><span class="bullet"></span> AI, agentic workflows &amp; automations</li>
-        </ul>
-      </div>
+    </div>
+    <div class="glass lead-list">
+      <div class="h">What I own</div>
+      <ul>
+        <li><span class="bullet"></span> Technical leadership &amp; direction</li>
+        <li><span class="bullet"></span> Growing engineers &amp; shaping teams</li>
+        <li><span class="bullet"></span> Backend &amp; system architecture</li>
+        <li><span class="bullet"></span> Cloud infrastructure &amp; DevOps</li>
+        <li><span class="bullet"></span> AI, agentic workflows &amp; automations</li>
+      </ul>
     </div>
   </div>
 </section>
@@ -880,7 +866,7 @@
       <h3>Lecturer, Mobile Development</h3>
       <div class="sub">FH Hagenberg</div>
       <p>
-        I spent 5+ years lecturing in mobile development at FH Hagenberg — turning hard-won, real-world
+        I spent 5+ years lecturing at FH Hagenberg — turning real-world
         experience into something the next generation of engineers can build on.
       </p>
     </article>
@@ -921,7 +907,7 @@
 <!-- ===== TRACK RECORD ===== -->
 <section class="container" id="about" style="padding-top:115px">
   <span class="eyebrow">Track record</span>
-  <h2 class="section-title">Fifteen years of building, <em>across</em> ventures and industries.</h2>
+  <h2 class="section-title">More than a decade building, <em>across</em> ventures & industries.</h2>
   <p class="section-sub">
     My path runs through the full arc of building and shipping software — from a master's in Mobile Computing
     to open source used the world over, and on to leading engineering teams of my own.
