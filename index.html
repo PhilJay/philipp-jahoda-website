@@ -9,13 +9,15 @@
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" media="(prefers-color-scheme: light)" />
 <link rel="icon" href="/assets/favicon-dark.svg" type="image/svg+xml" media="(prefers-color-scheme: dark)" />
 <link rel="apple-touch-icon" href="/assets/favicon.svg" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link rel="preload" as="image" href="/assets/portrait-hero.webp" fetchpriority="high" />
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'" />
-<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" /></noscript>
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/inter-latin.woff2" crossorigin />
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/space-grotesk-latin.woff2" crossorigin />
 <style>
+  /* self-hosted fonts — no third-party (Google) requests */
+  @font-face{font-family:"Inter";font-style:normal;font-weight:100 900;font-display:swap;src:url(/assets/fonts/inter-latin.woff2) format("woff2");}
+  @font-face{font-family:"Space Grotesk";font-style:normal;font-weight:300 700;font-display:swap;src:url(/assets/fonts/space-grotesk-latin.woff2) format("woff2");}
+  @font-face{font-family:"Inter Fallback";src:local("Arial");size-adjust:106.62%;}
+  @font-face{font-family:"Space Grotesk Fallback";src:local("Arial");size-adjust:109.38%;}
   :root {
     --base: #0a0c13;
     --base-2: #0e1220;
@@ -40,7 +42,7 @@
   html { scroll-behavior: smooth; }
 
   body {
-    font-family: "Inter", system-ui, sans-serif;
+    font-family: "Inter", "Inter Fallback", system-ui, sans-serif;
     background: var(--base);
     color: var(--text);
     line-height: 1.6;
@@ -50,7 +52,7 @@
   }
 
   h1, h2, h3, .display {
-    font-family: "Space Grotesk", "Inter", sans-serif;
+    font-family: "Space Grotesk", "Space Grotesk Fallback", "Inter", "Inter Fallback", sans-serif;
     letter-spacing: -0.02em;
     line-height: 1.08;
   }
@@ -204,7 +206,7 @@
     width: 38px; height: 38px;
     display: grid; place-items: center;
     border-radius: 11px;
-    font-family: "Space Grotesk", sans-serif;
+    font-family: "Space Grotesk", "Space Grotesk Fallback", sans-serif;
     font-weight: 700;
     font-size: 16px;
     letter-spacing: -0.02em;
@@ -213,7 +215,7 @@
     box-shadow: 0 6px 20px -6px rgba(166,189,236,0.7), inset 0 1px 0 rgba(255,255,255,0.3);
     flex-shrink: 0;
   }
-  .brand-name { font-family: "Space Grotesk", sans-serif; font-weight: 600; font-size: 16px; }
+  .brand-name { font-family: "Space Grotesk", "Space Grotesk Fallback", sans-serif; font-weight: 600; font-size: 16px; }
   .brand-name span { color: var(--faint); font-weight: 400; }
   .nav-links { display: flex; align-items: center; gap: 30px; }
   .nav-links a.link {
@@ -224,7 +226,7 @@
 
   .btn {
     display: inline-flex; align-items: center; gap: 9px;
-    font-family: "Inter", sans-serif;
+    font-family: "Inter", "Inter Fallback", sans-serif;
     font-weight: 600; font-size: 14px;
     padding: 11px 20px;
     border-radius: 12px;
@@ -335,7 +337,7 @@
   }
   .chart-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 6px; position: relative; z-index: 1; }
   .chart-head .label { font-size: 13px; color: var(--faint); letter-spacing: 0.04em; }
-  .chart-head .value { font-family: "Space Grotesk", sans-serif; font-size: 26px; font-weight: 700; }
+  .chart-head .value { font-family: "Space Grotesk", "Space Grotesk Fallback", sans-serif; font-size: 26px; font-weight: 700; }
   .chart-head .value small { font-size: 13px; color: var(--teal); font-weight: 600; margin-left: 6px; }
   .chart-legend { display: flex; gap: 18px; font-size: 12px; color: var(--muted); flex-shrink: 0; }
   .chart-legend span { display: inline-flex; align-items: center; gap: 6px; }
@@ -368,7 +370,7 @@
   /* circular ring treatment — no bottom fade */
   .photo-note {
     position: absolute; left: 50%; bottom: 18px; transform: translateX(-50%);
-    font-family: "Space Grotesk", sans-serif; font-size: 12px; letter-spacing: 0.04em;
+    font-family: "Space Grotesk", "Space Grotesk Fallback", sans-serif; font-size: 12px; letter-spacing: 0.04em;
     color: var(--muted); background: rgba(10,12,19,0.62); border: 1px solid var(--border);
     padding: 6px 13px; border-radius: 999px; backdrop-filter: blur(6px); z-index: 2; white-space: nowrap;
   }
@@ -395,7 +397,7 @@
   .lead-prose p + p { margin-top: 18px; }
   .lead-prose .dropcap {
     float: left;
-    font-family: "Space Grotesk", sans-serif;
+    font-family: "Space Grotesk", "Space Grotesk Fallback", sans-serif;
     font-size: 66px;
     line-height: 0.78;
     font-weight: 700;
@@ -407,7 +409,7 @@
   .lead-side { display: flex; flex-direction: column; gap: 22px; }
   .lead-stat { padding: 28px 30px; }
   .lead-stat .n {
-    font-family: "Space Grotesk", sans-serif;
+    font-family: "Space Grotesk", "Space Grotesk Fallback", sans-serif;
     font-size: 40px; font-weight: 700; line-height: 1;
     background: linear-gradient(120deg, #fff, #b3c5f0);
     -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
@@ -434,7 +436,7 @@
   .pillar .pn {
     width: 27px; height: 27px; border-radius: 9px; flex-shrink: 0;
     display: grid; place-items: center;
-    font-family: "Space Grotesk", sans-serif; font-size: 13px; font-weight: 600;
+    font-family: "Space Grotesk", "Space Grotesk Fallback", sans-serif; font-size: 13px; font-weight: 600;
     margin-top: 1px;
   }
   .pillar b { color: var(--text); font-weight: 600; }
@@ -485,7 +487,7 @@
     padding-top: 22px; border-top: 1px solid var(--border);
     justify-content: space-between; align-items: center; flex-wrap: wrap; row-gap: 14px;
   }
-  .keynote-card .audience .v { font-family: "Space Grotesk", sans-serif; font-size: 26px; font-weight: 700; }
+  .keynote-card .audience .v { font-family: "Space Grotesk", "Space Grotesk Fallback", sans-serif; font-size: 26px; font-weight: 700; }
   .keynote-card .audience .l { font-size: 12px; color: var(--faint); margin-top: 4px; }
   .lecturer-card { padding: 36px; display: flex; flex-direction: column; }
   .lecturer-card .ic {
@@ -506,7 +508,7 @@
   }
   .stat { padding: 26px 22px; }
   .stat .num {
-    font-family: "Space Grotesk", sans-serif;
+    font-family: "Space Grotesk", "Space Grotesk Fallback", sans-serif;
     font-size: 40px;
     font-weight: 700;
     line-height: 1;
@@ -541,7 +543,7 @@
     min-width: 180px;
   }
   .os-figure .big {
-    font-family: "Space Grotesk", sans-serif; font-size: 48px; font-weight: 700; line-height: 1;
+    font-family: "Space Grotesk", "Space Grotesk Fallback", sans-serif; font-size: 48px; font-weight: 700; line-height: 1;
     background: linear-gradient(120deg, var(--cyan), var(--violet));
     -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
   }
@@ -562,7 +564,7 @@
     box-shadow: 0 0 12px 1px rgba(126,150,214,0.6);
   }
   .tl-item.now::before { background: var(--teal); border-color: var(--teal); box-shadow: 0 0 14px 2px var(--teal); }
-  .tl-item .yr { font-family: "Space Grotesk", sans-serif; font-size: 13px; font-weight: 600; color: var(--cyan); letter-spacing: 0.04em; }
+  .tl-item .yr { font-family: "Space Grotesk", "Space Grotesk Fallback", sans-serif; font-size: 13px; font-weight: 600; color: var(--cyan); letter-spacing: 0.04em; }
   .tl-item .ttl { font-size: 17px; font-weight: 600; margin-top: 2px; }
   .tl-item .ttl .tag {
     font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
@@ -600,7 +602,7 @@
   .gallery .tile img { height: 100%; width: auto; display: block; filter: grayscale(.9) contrast(1.02) brightness(.9); transition: transform .55s ease, filter .45s ease; }
   .gallery .tile .gtint { position: absolute; inset: 0; background: linear-gradient(150deg, rgba(95,163,230,.55), rgba(82,119,189,.22)); mix-blend-mode: soft-light; transition: opacity .4s; pointer-events: none; }
   .gallery .tile .gcap { position: absolute; left: 0; right: 0; bottom: 0; padding: 16px 16px 14px; background: linear-gradient(to top, rgba(8,10,16,.94), rgba(8,10,16,.45) 55%, transparent); transform: translateY(10px); opacity: 0; transition: transform .4s ease, opacity .4s ease; pointer-events: none; }
-  .gallery .tile .gcap h4 { font-family: "Space Grotesk", sans-serif; font-size: 16px; font-weight: 600; }
+  .gallery .tile .gcap h4 { font-family: "Space Grotesk", "Space Grotesk Fallback", sans-serif; font-size: 16px; font-weight: 600; }
   .gallery .tile .gcap p { font-size: 12.5px; color: #9fc4ee; margin-top: 2px; }
   .gallery .tile:hover img { transform: scale(1.05); filter: grayscale(.35) contrast(1.03) brightness(1); }
   .gallery .tile:hover .gtint { opacity: .5; }
@@ -645,7 +647,7 @@
   .cc-label { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--faint); }
   .cc-val { font-size: 15px; color: var(--text); display: inline-flex; align-items: center; gap: 8px; transition: color 0.2s; text-align: right; }
   .cc-row:hover .cc-val { color: var(--cyan); }
-  .cc-val.email { font-family: "Space Grotesk", sans-serif; font-size: 17px; }
+  .cc-val.email { font-family: "Space Grotesk", "Space Grotesk Fallback", sans-serif; font-size: 17px; }
 
   /* ===== FOOTER ===== */
   footer { padding: 40px 0 60px; border-top: 1px solid rgba(255,255,255,0.06); margin-top: 60px; }
@@ -746,7 +748,7 @@
     <!-- HERO PHOTO -->
     <div class="photo-card">
       <figure class="photo-frame">
-        <img class="photo" width="700" height="700" fetchpriority="high" alt="Philipp Jahoda, CTO & Co-Founder at Ahoi Kapptn" src="/assets/portrait-hero.webp" />
+        <img class="photo" width="512" height="512" fetchpriority="high" alt="Philipp Jahoda, CTO & Co-Founder at Ahoi Kapptn" src="/assets/portrait-hero.webp" />
       </figure>
     </div>
   </div>
