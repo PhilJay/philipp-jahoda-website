@@ -594,9 +594,10 @@
 
   /* ===== GALLERY ===== */
   .gallery { overflow: hidden; margin-top: 44px; -webkit-mask-image: linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent); mask-image: linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent); }
-  .gallery .track { display: flex; width: max-content; }
+  .gallery .track { display: flex; width: max-content; position: relative; }
+  .gallery .track.manual { transition: transform .5s cubic-bezier(.22,.61,.36,1); will-change: transform; }
+  .gallery .track.notrans, .gallery .track.notrans .tile img, .gallery .track.notrans .tile .gtint, .gallery .track.notrans .tile .gcap { transition: none !important; }
   .gallery .track.animate { animation: marquee var(--dur,40s) linear infinite; will-change: transform; backface-visibility: hidden; }
-  .gallery .track.animate:hover { animation-play-state: paused; }
   .gallery .track.static { width: 100%; justify-content: center; }
   .gallery .tile { flex: 0 0 auto; height: 300px; margin-right: 18px; position: relative; overflow: hidden; border-radius: 14px; cursor: pointer; border: 1px solid var(--border); background: #0d1320; }
   .gallery .tile img { height: 100%; width: auto; display: block; filter: grayscale(.9) contrast(1.02) brightness(.9); transition: transform .55s ease, filter .45s ease; }
@@ -608,11 +609,25 @@
   .gallery .tile:hover .gtint { opacity: .5; }
   .gallery .tile:hover .gcap { transform: translateY(0); opacity: 1; }
   /* mobile tap-to-select: JS adds these classes only on touch devices, so desktop hover is unchanged */
-  .gallery .track.animate.paused { animation-play-state: paused; }
   .gallery .tile.selected img { transform: scale(1.06); filter: grayscale(.35) contrast(1.03) brightness(1); }
   .gallery .tile.selected .gtint { opacity: .5; }
   .gallery .tile.selected .gcap { transform: translateY(0); opacity: 1; }
-  @keyframes marquee { from { transform: translate3d(0,0,0); } to { transform: translate3d(-50%,0,0); } }
+  .gallery-wrap { position: relative; }
+  .gnav {
+    position: absolute; top: 50%; transform: translateY(-50%); z-index: 4;
+    width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center;
+    background: var(--glass-strong); border: 1px solid var(--border-bright); color: var(--text);
+    cursor: pointer; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+    opacity: 0; visibility: hidden; transition: opacity .3s ease, background .2s, border-color .2s;
+  }
+  .gnav-prev { left: 12px; } .gnav-next { right: 12px; }
+  .gnav:hover { background: rgba(255,255,255,0.12); }
+  .gnav svg { width: 20px; height: 20px; }
+  .gnav:disabled { cursor: default; }
+  .gallery-wrap.nav-on .gnav { opacity: 1; visibility: visible; }
+  .gallery-wrap.nav-on .gnav:disabled { opacity: .25; }
+  @media (prefers-reduced-motion: reduce) { .gallery .track.manual { transition: none; } }
+  @keyframes marquee { from { transform: translate3d(0,0,0); } to { transform: translate3d(-33.3333%,0,0); } }
   @media (prefers-reduced-motion: reduce) { .gallery .track.animate { animation: none; } }
   @media (max-width: 700px) { .gallery .tile { height: 260px; } }
 
@@ -961,7 +976,11 @@
   <span class="eyebrow">Gallery</span>
   <h2 class="section-title">Insights <em>beyond</em> coding & problem solving.</h2>
   <p class="section-sub">A few moments — talks, the team, sports and the things that keep me focused.</p>
-  <div class="gallery"><div class="track" id="gallery-track"></div></div>
+  <div class="gallery-wrap">
+    <div class="gallery"><div class="track" id="gallery-track"></div></div>
+    <button class="gnav gnav-prev" type="button" aria-label="Previous image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button>
+    <button class="gnav gnav-next" type="button" aria-label="Next image"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+  </div>
 </section>
 
 <!-- ===== CONTACT ===== -->
@@ -1073,30 +1092,126 @@
       '<figcaption class="gcap"><h4>'+esc(it.title)+'</h4>'+(it.subtitle?'<p>'+esc(it.subtitle)+'</p>':'')+'</figcaption>'+
       '</figure>';
   }
-  // Touch devices: tap a tile to pause the auto-scroll, show its caption and zoom it in; tap it again,
-  // another tile, or anywhere else to unselect and resume. Desktop keeps hover and is untouched.
-  function setupTouch(){
-    if(!window.matchMedia||!window.matchMedia("(hover: none)").matches)return;
-    var selected=null;
-    function deselect(){
-      if(!selected)return;
-      selected.classList.remove("selected");
-      track.classList.remove("paused");
-      selected=null;
-    }
-    document.addEventListener("click",function(e){
-      var t=e.target&&e.target.closest?e.target.closest(".tile"):null;
-      if(!t||!track.contains(t)){deselect();return;}
-      if(selected===t){deselect();return;}
-      if(selected)selected.classList.remove("selected");
-      t.classList.add("selected");
-      track.classList.add("paused");
-      selected=t;
-    });
-  }
+  var GN = 0, GDUR = 0;
   function startAnimation(){
     track.classList.add("animate");
-    setupTouch();
+    setupCarousel(GN, GDUR);
+  }
+  // When the gallery is focused (desktop hover / mobile tap) the CSS marquee hands off to JS
+  // so the prev/next arrows can slide the active image to the centre, then hands back on exit.
+  function setupCarousel(n, dur){
+    var gallery = track.parentNode;     // .gallery (clips overflow + mask)
+    var wrap = gallery.parentNode;      // .gallery-wrap (holds the arrows)
+    var prev = wrap.querySelector(".gnav-prev"), next = wrap.querySelector(".gnav-next");
+    if(!prev || !next) return;
+    var tiles = track.children;         // three copies of the n images (3n tiles)
+    var total = tiles.length;
+    var focused = false, phys = 0, curX = 0, period = 0;
+    var hoverCapable = !(window.matchMedia && window.matchMedia("(hover: none)").matches);
+
+    function readX(){
+      var m = getComputedStyle(track).transform;
+      if(!m || m === "none") return 0;
+      var p = m.match(/\((.+)\)/); if(!p) return 0;
+      var v = p[1].split(", ");
+      return parseFloat(v.length > 6 ? v[12] : v[4]) || 0;
+    }
+    function xFor(i){ var t = tiles[i]; return gallery.clientWidth/2 - (t.offsetLeft + t.offsetWidth/2); }
+    function anySelected(){ for(var i=0;i<total;i++) if(tiles[i].classList.contains("selected")) return true; return false; }
+    function select(p){ for(var i=0;i<total;i++) tiles[i].classList.toggle("selected", i===p); }
+    function clearSel(){ for(var i=0;i<total;i++) tiles[i].classList.remove("selected"); }
+    function nearest(){
+      var c = gallery.clientWidth/2, best = 0, bestD = Infinity;
+      for(var i=0;i<total;i++){
+        var d = Math.abs(tiles[i].offsetLeft + tiles[i].offsetWidth/2 + curX - c);
+        if(d < bestD){ bestD = d; best = i; }
+      }
+      return best;
+    }
+    // Invisible re-anchor: hop one period (one image-copy) to the equivalent tile. Because there
+    // are three copies and the active tile is kept in the middle one, it always has a full copy of
+    // images on each side (never runs out -> no blank edge), and the hop swaps identical content so
+    // nothing visibly moves.
+    function reanchor(p, x){
+      var keep = anySelected();
+      var shifted = readX() + (x - curX);   // hop from the LIVE position, so a mid-slide hop stays seamless
+      track.classList.add("notrans");
+      if(keep) select(p);
+      track.style.transform = "translate3d(" + shifted + "px,0,0)";
+      void track.offsetWidth;
+      track.classList.remove("notrans");
+      phys = p; curX = x;
+    }
+    function normalize(){               // keep the active tile in the middle copy [n, 2n)
+      while(phys >= 2*n){ reanchor(phys - n, curX + period); }
+      while(phys < n){ reanchor(phys + n, curX - period); }
+    }
+    function slide(p){
+      phys = p; curX = xFor(p);
+      select(p);
+      track.style.transform = "translate3d(" + curX + "px,0,0)"; // animates via .manual transition
+    }
+    function freeze(){
+      if(focused) return;
+      period = track.scrollWidth/3;
+      curX = readX();
+      track.classList.remove("animate");
+      track.style.animationDelay = "";
+      track.style.transform = "translate3d(" + curX + "px,0,0)";
+      void track.offsetWidth;             // commit the frozen position before transitions turn on
+      track.classList.add("manual");
+      wrap.classList.add("nav-on");
+      focused = true;
+      phys = nearest();
+      normalize();                        // start in the middle copy (invisible)
+    }
+    function resume(){
+      if(!focused) return;
+      focused = false; clearSel();
+      var frac = period ? ((((-curX) % period) + period) % period) / period : 0;
+      track.classList.remove("manual");
+      track.style.transform = "";
+      track.style.animationDelay = (-(frac*dur)) + "s"; // re-join the marquee from the current spot
+      track.classList.add("animate");
+      wrap.classList.remove("nav-on");
+    }
+    function step(dir){
+      freeze();
+      var p = phys + dir;
+      if(p < 0){ reanchor(phys + n, curX - period); p = phys + dir; }
+      else if(p > total - 1){ reanchor(phys - n, curX + period); p = phys + dir; }
+      slide(p);
+    }
+    // After each slide settles, hop the active tile back into the middle copy. One-period hop -> invisible.
+    track.addEventListener("transitionend", function(e){
+      // only the track's own slide — ignore the tile-image zoom transitions that bubble up here
+      if(e.target !== track || e.propertyName !== "transform" || !focused) return;
+      normalize();
+    });
+
+    prev.addEventListener("click", function(e){ e.stopPropagation(); step(-1); });
+    next.addEventListener("click", function(e){ e.stopPropagation(); step(1); });
+
+    if(hoverCapable){
+      wrap.addEventListener("mouseenter", freeze);
+      wrap.addEventListener("mouseleave", resume);
+    } else {
+      document.addEventListener("click", function(e){
+        if(e.target.closest && e.target.closest(".gnav")) return;
+        var t = e.target.closest ? e.target.closest(".tile") : null;
+        if(!t || !track.contains(t)){ resume(); return; }
+        var idx = Array.prototype.indexOf.call(tiles, t);
+        if(focused && (idx % n) === (phys % n)){ resume(); return; } // tap the active image again to close
+        freeze(); slide((idx % n) + n);   // centre the middle-copy rep so it always has buffers
+      });
+    }
+    document.addEventListener("keydown", function(e){
+      if(!focused) return;
+      if(e.key === "ArrowLeft") step(-1);
+      else if(e.key === "ArrowRight") step(1);
+      else if(e.key === "Escape") resume();
+    });
+    window.addEventListener("resize", function(){ if(focused) resume(); });
   }
   // Resolve once every gallery image (base + duplicates) has loaded, so the track is at
   // its final width before the marquee begins (see the note at the call site).
@@ -1133,15 +1248,18 @@
   fetch("assets/gallery/gallery.json",{cache:"no-store"})
     .then(function(r){if(!r.ok)throw new Error("HTTP "+r.status);return r.json();})
     .then(function(items){
-      if(!Array.isArray(items)||!items.length){track.parentNode.parentNode.style.display="none";return;}
+      if(!Array.isArray(items)||!items.length){hideGallery();return;}
       var base=items.map(function(it){return tile(it,false);}).join("");
       if(items.length>3){
-        track.innerHTML=base+items.map(function(it){return tile(it,true);}).join("");
-        track.style.setProperty("--dur",(items.length*5.5)+"s");
+        GN=items.length; GDUR=items.length*5.5;
+        var dup=items.map(function(it){return tile(it,true);}).join("");
+        track.innerHTML=base+dup+dup;
+        track.style.setProperty("--dur",GDUR+"s");
         startWhenVisibleAndLoaded();
       }else{track.innerHTML=base;track.classList.add("static");}
     })
-    .catch(function(){track.parentNode.parentNode.style.display="none";});
+    .catch(function(){hideGallery();});
+  function hideGallery(){ var sec=track.closest("section"); if(sec) sec.style.display="none"; }
 })();
 </script>
 </body>
