@@ -1104,6 +1104,42 @@
       selected=t;
     });
   }
+  function startAnimation(){
+    track.classList.add("animate");
+    setupTouch();
+  }
+  // Resolve once every gallery image (base + duplicates) has loaded, so the track is at
+  // its final width before the marquee begins (see the note at the call site).
+  function whenImagesLoaded(){
+    var imgs=track.querySelectorAll("img");
+    var waits=Array.prototype.map.call(imgs,function(img){
+      img.loading="eager"; // cancel lazy deferral so the off-screen duplicates load now
+      if(img.complete&&img.naturalWidth)return Promise.resolve();
+      return new Promise(function(res){
+        img.addEventListener("load",res,{once:true});
+        img.addEventListener("error",res,{once:true});
+      });
+    });
+    var safety=new Promise(function(res){setTimeout(res,5000);}); // never stall forever
+    return Promise.race([Promise.all(waits),safety]);
+  }
+  // Safari bakes the marquee's percentage transform (-50%) against the track's width at
+  // the moment the animation starts and never recomputes it on resize. If the lazy,
+  // off-screen duplicate tiles haven't loaded yet, the track is ~half its final width, so
+  // the scroll runs at half speed until a hover repaint forces a recompute (the "jump +
+  // speed-up"). Defer the start until the gallery is visible AND all images are loaded so
+  // the baked width is already correct. Keeps lazy-loading for initial page-load perf.
+  function startWhenVisibleAndLoaded(){
+    function go(){whenImagesLoaded().then(startAnimation);}
+    if("IntersectionObserver" in window){
+      var io=new IntersectionObserver(function(entries){
+        for(var i=0;i<entries.length;i++){
+          if(entries[i].isIntersecting){io.disconnect();go();return;}
+        }
+      },{rootMargin:"200px"});
+      io.observe(track.parentNode);
+    }else{go();}
+  }
   fetch("assets/gallery/gallery.json",{cache:"no-store"})
     .then(function(r){if(!r.ok)throw new Error("HTTP "+r.status);return r.json();})
     .then(function(items){
@@ -1111,9 +1147,8 @@
       var base=items.map(function(it){return tile(it,false);}).join("");
       if(items.length>3){
         track.innerHTML=base+items.map(function(it){return tile(it,true);}).join("");
-        track.classList.add("animate");
         track.style.setProperty("--dur",(items.length*5.5)+"s");
-        setupTouch();
+        startWhenVisibleAndLoaded();
       }else{track.innerHTML=base;track.classList.add("static");}
     })
     .catch(function(){track.parentNode.parentNode.style.display="none";});
