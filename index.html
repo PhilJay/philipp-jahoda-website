@@ -763,7 +763,7 @@
     <!-- HERO PHOTO -->
     <div class="photo-card">
       <figure class="photo-frame">
-        <img class="photo" width="512" height="512" fetchpriority="high" alt="Philipp Jahoda, CTO & Co-Founder at Ahoi Kapptn" src="/assets/portrait-hero.webp" />
+        <img class="photo" width="400" height="400" fetchpriority="high" alt="Philipp Jahoda, CTO & Co-Founder at Ahoi Kapptn" src="/assets/portrait-hero.webp" />
       </figure>
     </div>
   </div>
@@ -1076,6 +1076,20 @@
   });
 })();
 </script>
+<script type="application/json" id="gallery-data">
+[
+  { "src": "assets/gallery/btm.webp",        "title": "Keynote — BTM 2026",        "subtitle": "AI in business · Vienna" },
+  { "src": "assets/gallery/sportstech.webp", "title": "Sports meets technology",   "subtitle": "Ahoi Kapptn! Event" },
+  { "src": "assets/gallery/portrait.webp",   "title": "Philipp Jahoda",            "subtitle": "Off stage" },
+  { "src": "assets/gallery/btm2.webp",        "title": "On stage — BTM 2026",       "subtitle": "BTM Event · Vienna" },
+  { "src": "assets/gallery/rotax.webp",       "title": "Rotax Business Challenge",  "subtitle": "On the track" },
+  { "src": "assets/gallery/hyrox-web.webp",   "title": "HYROX",                     "subtitle": "Beyond the desk" },
+  { "src": "assets/gallery/wedding.webp",     "title": "Wedding in Freistadt",      "subtitle": "Celebrating a friend" },
+  { "src": "assets/gallery/traunstein.webp",  "title": "Hiking near Traunstein",    "subtitle": "At the summit · Austria" },
+  { "src": "assets/gallery/yosemite.webp",    "title": "Yosemite Valley",           "subtitle": "Half Dome · California" },
+  { "src": "assets/gallery/tractive.webp",    "title": "Dev Meetup",               "subtitle": "Tractive" }
+]
+</script>
 <script>
 (function () {
   var track = document.getElementById("gallery-track");
@@ -1241,20 +1255,24 @@
       io.observe(track.parentNode);
     }else{go();}
   }
-  fetch("assets/gallery/gallery.json",{cache:"no-store"})
-    .then(function(r){if(!r.ok)throw new Error("HTTP "+r.status);return r.json();})
-    .then(function(items){
-      if(!Array.isArray(items)||!items.length){hideGallery();return;}
-      var base=items.map(function(it){return tile(it,false);}).join("");
-      if(items.length>3){
-        GN=items.length; GDUR=items.length*5.5;
-        var dup=items.map(function(it){return tile(it,true);}).join("");
-        track.innerHTML=base+dup+dup;
-        track.style.setProperty("--dur",GDUR+"s");
-        startWhenVisibleAndLoaded();
-      }else{track.innerHTML=base;track.classList.add("static");}
-    })
-    .catch(function(){hideGallery();});
+  // Gallery data is inlined as a JSON <script> (see #gallery-data) rather than fetched,
+  // so there's no extra round-trip / critical request chain on load. Edit the list there.
+  (function(){
+    var items;
+    try{
+      var el=document.getElementById("gallery-data");
+      items=el?JSON.parse(el.textContent):null;
+    }catch(e){ hideGallery(); return; }
+    if(!Array.isArray(items)||!items.length){hideGallery();return;}
+    var base=items.map(function(it){return tile(it,false);}).join("");
+    if(items.length>3){
+      GN=items.length; GDUR=items.length*5.5;
+      var dup=items.map(function(it){return tile(it,true);}).join("");
+      track.innerHTML=base+dup+dup;
+      track.style.setProperty("--dur",GDUR+"s");
+      startWhenVisibleAndLoaded();
+    }else{track.innerHTML=base;track.classList.add("static");}
+  })();
   function hideGallery(){ var sec=track.closest("section"); if(sec) sec.style.display="none"; }
 })();
 </script>
