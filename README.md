@@ -1,8 +1,6 @@
-# Philipp Jahoda — Personal Website
+# Personal Website
 
-Personal brand site for **Philipp Jahoda** — CTO & Co-Founder at Ahoi Kapptn, Linz, Austria.
-
-A single, self-contained `index.html` — vanilla HTML & CSS (inline styles, Google Fonts), no build step and no dependencies.
+A single, self-contained `index.html` — vanilla HTML & CSS (inline styles, self-hosted fonts), no build step and no dependencies.
 
 ## Develop
 
