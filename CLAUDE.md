@@ -48,3 +48,14 @@ There is no test suite, linter, or package manager.
 ## Deploy notes
 
 `CNAME` pins the custom domain (philippjahoda.com) — don't delete it. Asset paths are **absolute** (`/assets/...`), so previewing requires serving from the repo root, not opening files via `file://` for the asset-dependent parts.
+
+`_config.yml` exists only to set Jekyll's `exclude:` — it keeps `CLAUDE.md`, `README.md`, `pagespeed_report/` and `vercel.json` in git but **out of the published site** (they returned HTTP 200 before). Don't add a `.nojekyll` file: that disables Jekyll and would start serving those excluded files (and any dotfiles) raw.
+
+## Security headers (infra-bound, like caching)
+
+GitHub Pages can't set response headers in-repo, so the site currently ships **no** HSTS/CSP/X-Frame-Options/X-Content-Type-Options/Referrer-Policy/Permissions-Policy. Impact is low (fully static, no cookies/forms/auth), but the fix is the same infra move as the caching one. Two ready-to-use configs are committed for a future migration and are **inert on GitHub Pages today**:
+
+- `vercel.json` — security headers + `/assets/*` cache rule for **Vercel** (the planned target). Vercel reads it at deploy; here it's `exclude:`-d so it isn't served.
+- `_headers` — same policy for **Netlify / Cloudflare Pages**. Ignored by both GitHub Pages and Vercel; auto-unpublished by its leading underscore.
+
+The CSP needs `'unsafe-inline'` for `script-src`/`style-src` because all CSS/JS (and many `style="…"` attrs) are inline — tightening it would mean externalizing scripts or adding hashes. If you instead front Pages with a **Cloudflare proxy**, set the same headers there via a Transform Rule and it also fixes the cache-TTL finding. Separately: GitHub domain verification is **not** enabled (latent takeover guard) — add it at github.com/settings/pages.

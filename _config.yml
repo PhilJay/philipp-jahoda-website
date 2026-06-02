@@ -8,3 +8,4 @@ exclude:
   - CLAUDE.md
   - README.md
   - pagespeed_report
+  - vercel.json   # config for a future Vercel host; inert + unserved here (_headers is auto-excluded by its underscore)
