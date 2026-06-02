@@ -1,0 +1,10 @@
+# GitHub Pages (Jekyll) build config — the ONLY purpose of this file is `exclude`.
+# Jekyll already drops dotfiles (.git, .DS_Store, .gitignore, .superpowers) from the
+# published _site, but it serves ordinary files like CLAUDE.md/README.md by default.
+# These are dev-only docs (and unreferenced screenshots) with no place on the live site,
+# so keep them tracked in git but out of what gets published. After deploy, requesting
+# /CLAUDE.md, /README.md, or /pagespeed_report/* should return 404.
+exclude:
+  - CLAUDE.md
+  - README.md
+  - pagespeed_report
