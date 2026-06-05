@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-Personal brand site for Philipp Jahoda (CTO & Co-Founder at Ahoi Kapptn). Vanilla HTML/CSS/JS, **no build step, no dependencies, no framework**. Three standalone pages: `index.html` (the site), `imprint.html` and `privacy.html` (legal). Deployed to GitHub Pages at philippjahoda.com.
+Personal brand site for Philipp Jahoda (CTO & Co-Founder at Ahoi Kapptn!). Vanilla HTML/CSS/JS, **no build step, no dependencies, no framework**. Three standalone pages: `index.html` (the site), `imprint.html` and `privacy.html` (legal). Deployed to GitHub Pages at philippjahoda.com.
 
 ## Commands
 
